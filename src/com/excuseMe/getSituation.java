@@ -39,7 +39,10 @@ public class getSituation extends Activity{
 
 			@Override
 			public void onClick(View v) {
-				util.alertNI(getSituation.this);
+				//til.alertNI(getSituation.this);
+				Intent myIntent = new Intent(getSituation.this, GetTime.class);
+				startActivity(myIntent);
+				
 			}
 		});
 		
