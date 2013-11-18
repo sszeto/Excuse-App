@@ -58,6 +58,12 @@
             
         </activity>
         
+         <activity
+            android:name=".GetTime"
+        >
+            
+        </activity>
+        
         
         
         
