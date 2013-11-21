@@ -23,7 +23,7 @@
         <item>Under 18</item>
         <item>18 ~ 23</item>
         <item>24 ~ 35</item>
-        <item>35 ~ 49</item>
+        <item>36 ~ 49</item>
         <item>Over 50</item>
     </string-array>
     
@@ -36,11 +36,10 @@
     </string-array>
     
     <string-array name="personality_array">
-        <item>Easy Going</item>
-        <item>Leader</item>
-        <item>Silly</item>
-        <item>Shy</item>
-        <item>Nerdy</item>    
+        <item>Temp 1</item>
+        <item>Temp 2</item>
+        <item>Temp 3</item>
+        <item>Temp 4</item>    
     </string-array>
     
     <string-array name="ethnicity_array">
@@ -48,47 +47,38 @@
         <item>African American</item>
         <item>Asian</item>
         <item>Hispanic</item>
+        <item>Indian</item>
         <item>Other</item>
     </string-array>
     
     <string-array name="location_array">
-        <item>North East  ~ City</item>
-        <item>North East ~ Suburb</item>
-        <item>North East ~ Rural</item>
-        <item>Midwest ~ City</item>
-        <item>Midwest ~ Suburb</item>
-        <item>Midwest ~ Rural</item>
-        <item>South ~ City</item>
-        <item>South ~ Suburb</item>
-        <item>South ~ Rural</item>
-        <item>West ~ City</item>
-        <item>West ~ Suburb</item>
-        <item>West ~ Rural</item>       
+        <item>City</item>
+        <item>Suburb</item>
+        <item>Rural</item>
+   
     </string-array>
 
     
     <string-array name="income_array">
-        <item>Under $15000</item>
-        <item>$15000 - $30000</item>
+        <item>Unemployed</item>
+        <item>Under $30000</item>
         <item>$30000 - $45000</item>
         <item>$45000 - $65000</item>
         <item>$65000 - $80000</item>
-        <item>$80000 - $100000</item>
-        <item>$100000 - $150000</item>
-        <item>Above $150000</item>
+        <item>Above $80000</item>
     </string-array>
     
     <string-array name="brother_array">
         <item>I have no brothers</item>
-        <item>I have brothers</item>
+        <item>I have at least 1 brother</item>
     </string-array>
     
     <string-array name="sister_array">
         <item>I have no Sisters</item>
-        <item>I have sisters</item>
+        <item>I have at least 1 sister</item>
     </string-array>
     
-    <string-array name="parents_array">
+    <string-array name="family_array">
         <item>I live with my parents</item>
         <item>I own a house or apartment</item>
     </string-array>

@@ -111,21 +111,6 @@ public class UserLogin extends Activity {
 					myIntent.putExtra("userId", Integer.parseInt((String)a.get("userId")));
 					startActivity(myIntent);
 					
-//					acc.getUserProfile(Integer.parseInt((String)a.get("userId")) , new RestCallback(){
-//						
-//						
-//						@Override
-//						public void onTaskComplete(Object result) {
-//							
-//							Intent myIntent = new Intent(MainActivity.this, ProfileGet.class);
-//							Info infoTest = g.fromJson((String)result, Info.class);
-//							//util.alert(infoTest.writeInfo(), MainActivity.this);
-//							
-//							myIntent.putExtra("userInfo", infoTest);
-//							startActivity(myIntent);
-//							
-//						}
-//					});
 				}
 
 			}}

@@ -16,40 +16,43 @@ public class Info implements Serializable {
 		incomeTxt,
 		locationTxt,
 		relationshipTxt,
-		religionTxt,
 		ethnicityTxt,
 		personalityTxt,
 		familyTxt,
-		hasBrotherTxt,
-		hasSisterTxt,
+		brotherTxt,
+		sisterTxt,
 		timeUpdatedTxt; 
 		
 	//Keywords
-	String gender, 
+	String 
+		age,
+		gender, 
 		income, 
 		location, 
-		relationship, 
-		religion, 
+		relationship,  
 		ethnicity, 
-		personality;
+		personality,
+		family,
+		brother,
+		sister;
 	
-	Boolean hasFamily,
-	hasBrother,
-	hasSister;
-
+	
 	int aboutId,
-		userId, 
-		age;
+		userId;
 
 	
 
 	//Decode ID's
-	int incomeId,
+	int ageId,
+		genderId,
+		incomeId,
 		locationId,
 		relationshipId,
-		religionId,
 		ethnicityId,
-		personalityId;
+		personalityId,
+		familyId,
+		brotherId,
+		sisterId;
 	
 	
 	public Info(){
@@ -63,12 +66,11 @@ public class Info implements Serializable {
 				incomeTxt + ".  " +
 				locationTxt + ".  " +
 				relationshipTxt + ".  " +
-				religionTxt + ".  " +
 				ethnicityTxt + ".  " +
 				personalityTxt + ".  " +
 				familyTxt + ".  " +
-				hasBrotherTxt + ".  " +
-				hasSisterTxt + ".  " + 
+				brotherTxt + ".  " +
+				sisterTxt + ".  " + 
 				timeUpdatedTxt; 
 		
 	}
@@ -143,16 +145,6 @@ public class Info implements Serializable {
 	}
 
 
-	public String getReligionTxt() {
-		return religionTxt;
-	}
-
-
-	public void setReligionTxt(String religionTxt) {
-		this.religionTxt = religionTxt;
-	}
-
-
 	public String getEthnicityTxt() {
 		return ethnicityTxt;
 	}
@@ -183,23 +175,23 @@ public class Info implements Serializable {
 	}
 
 
-	public String getHasBrotherTxt() {
-		return hasBrotherTxt;
+	public String getBrotherTxt() {
+		return brotherTxt;
 	}
 
 
-	public void setHasBrotherTxt(String hasBrotherTxt) {
-		this.hasBrotherTxt = hasBrotherTxt;
+	public void setBrotherTxt(String brotherTxt) {
+		this.brotherTxt = brotherTxt;
 	}
 
 
-	public String getHasSisterTxt() {
-		return hasSisterTxt;
+	public String getSisterTxt() {
+		return sisterTxt;
 	}
 
 
-	public void setHasSisterTxt(String hasSisterTxt) {
-		this.hasSisterTxt = hasSisterTxt;
+	public void setSisterTxt(String sisterTxt) {
+		this.sisterTxt = sisterTxt;
 	}
 
 
@@ -210,6 +202,16 @@ public class Info implements Serializable {
 
 	public void setTimeUpdatedTxt(String timeUpdatedTxt) {
 		this.timeUpdatedTxt = timeUpdatedTxt;
+	}
+
+
+	public String getAge() {
+		return age;
+	}
+
+
+	public void setAge(String age) {
+		this.age = age;
 	}
 
 
@@ -253,16 +255,6 @@ public class Info implements Serializable {
 	}
 
 
-	public String getReligion() {
-		return religion;
-	}
-
-
-	public void setReligion(String religion) {
-		this.religion = religion;
-	}
-
-
 	public String getEthnicity() {
 		return ethnicity;
 	}
@@ -283,33 +275,33 @@ public class Info implements Serializable {
 	}
 
 
-	public Boolean getHasFamily() {
-		return hasFamily;
+	public String getFamily() {
+		return family;
 	}
 
 
-	public void setHasFamily(Boolean hasFamily) {
-		this.hasFamily = hasFamily;
+	public void setFamily(String family) {
+		this.family = family;
 	}
 
 
-	public Boolean getHasBrother() {
-		return hasBrother;
+	public String getBrother() {
+		return brother;
 	}
 
 
-	public void setHasBrother(Boolean hasBrother) {
-		this.hasBrother = hasBrother;
+	public void setBrother(String brother) {
+		this.brother = brother;
 	}
 
 
-	public Boolean getHasSister() {
-		return hasSister;
+	public String getSister() {
+		return sister;
 	}
 
 
-	public void setHasSister(Boolean hasSister) {
-		this.hasSister = hasSister;
+	public void setSister(String sister) {
+		this.sister = sister;
 	}
 
 
@@ -333,13 +325,23 @@ public class Info implements Serializable {
 	}
 
 
-	public int getAge() {
-		return age;
+	public int getAgeId() {
+		return ageId;
 	}
 
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setAgeId(int ageId) {
+		this.ageId = ageId;
+	}
+
+
+	public int getGenderId() {
+		return genderId;
+	}
+
+
+	public void setGenderId(int genderId) {
+		this.genderId = genderId;
 	}
 
 
@@ -373,16 +375,6 @@ public class Info implements Serializable {
 	}
 
 
-	public int getReligionId() {
-		return religionId;
-	}
-
-
-	public void setReligionId(int religionId) {
-		this.religionId = religionId;
-	}
-
-
 	public int getEthnicityId() {
 		return ethnicityId;
 	}
@@ -403,21 +395,34 @@ public class Info implements Serializable {
 	}
 
 
-	/**
-	 * @return the occupationTxt
-	 */
+	public int getFamilyId() {
+		return familyId;
+	}
 
 
-	/**
-	 * @return the hobbyTxt
-	 */
-	
-	
-	
+	public void setFamilyId(int familyId) {
+		this.familyId = familyId;
+	}
 
 
-	
+	public int getBrotherId() {
+		return brotherId;
+	}
+
+
+	public void setBrotherId(int brotherId) {
+		this.brotherId = brotherId;
+	}
+
+
+	public int getSisterId() {
+		return sisterId;
+	}
+
+
+	public void setSisterId(int sisterId) {
+		this.sisterId = sisterId;
+	}
 }
-
 
 	

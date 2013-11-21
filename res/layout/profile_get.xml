@@ -15,7 +15,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="34dp"
-            android:text="nameFiller"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
@@ -35,67 +35,61 @@
         android:id="@+id/ageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/genderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/incomeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/locationView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/relationshipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/religionView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/ethnicityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/personalityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
-        android:id="@+id/hasFamView"
+        android:id="@+id/familyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
-        android:id="@+id/hasBrotherView"
+        android:id="@+id/brotherView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
-        android:id="@+id/hasSisterView"
+        android:id="@+id/sisterView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -108,7 +102,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:text="TextView" />
+            android:text="" />
 
     </RelativeLayout>
 

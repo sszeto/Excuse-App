@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ public class Register extends Activity {
 	Utilities util = new Utilities();
 	Gson g = new Gson();
 	
+	EditText userReg , emailReg, firstReg, lastReg, credReg;
 	
 	
 	@Override
@@ -47,11 +49,13 @@ public class Register extends Activity {
 	
 	private void realRegister(){
 		
-		EditText userReg = (EditText)findViewById(R.id.usernameReg);
-		EditText emailReg = (EditText)findViewById(R.id.emailReg);
-		EditText firstReg = (EditText)findViewById(R.id.firstNameReg);
-		EditText lastReg = (EditText)findViewById(R.id.lastNameReg);
-		EditText credReg = (EditText)findViewById(R.id.passwordReg);
+		userReg = (EditText)findViewById(R.id.usernameReg);
+		emailReg = (EditText)findViewById(R.id.emailReg);
+		firstReg = (EditText)findViewById(R.id.firstNameReg);
+		lastReg = (EditText)findViewById(R.id.lastNameReg);
+		credReg = (EditText)findViewById(R.id.passwordReg);
+		
+		
 		
 	
 		a.register(userReg.getText().toString(), emailReg.getText().toString(), 
@@ -63,8 +67,16 @@ public class Register extends Activity {
 						Log.d("", result.toString());
 						HashMap<String, Object> a = g.fromJson((String)result, HashMap.class );
 						
-
-						util.alert(a.get("message").toString(), Register.this);	
+						if(((Double) a.get("success")).intValue() != 1 ){
+							util.alert(a.get("message").toString(), Register.this);
+						}else{
+							String name = firstReg.getText().toString()+ " "+lastReg.getText().toString();
+							
+							Intent i= new Intent(Register.this, ProfileCreate.class);
+							i.putExtra("username", a.get("username").toString() );
+							i.putExtra("name", name); 
+							startActivity(i);
+						}
 						
 					}
 			
