@@ -4,44 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <Button
+        android:id="@+id/submitExcuseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="Submit An Excuse!" />
+
+    <Button
+        android:id="@+id/editProfileBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Edit Profile" />
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/welcomePanelView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="38dp"
-        android:text="User Panel Temp Text"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="46dp"
+        android:text="Welcome!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/findExcuseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="28dp"
+        android:layout_above="@+id/editProfileBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         android:text="Find An Excuse!" />
 
     <Button
-        android:id="@+id/editProfileBtn"
+        android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/findExcuseBtn"
-        android:layout_below="@+id/findExcuseBtn"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="36dp"
-        android:text="Edit Profile" />
-
-    <Button
-        android:id="@+id/submitExcuseBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editProfileBtn"
-        android:layout_below="@+id/editProfileBtn"
-        android:layout_marginTop="58dp"
-        android:text="Submit An Excuse!" />
-    
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/editProfileBtn"
+        android:text="Logout" />
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import com.ppierson.webservicetasks.RestCallback;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,22 +30,26 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 	int sexId, ageId, relationshipId, personalityId, ethnicityId, locationId, incomeId
 	,brotherId, sisterId, parentId;
 
-	accountAccess a = new accountAccess();
+	accountAccess a;
+	
+	SharedPreferences myPref;
 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_create);
 
-		Intent oldIntent = getIntent();
-		setUsername(oldIntent.getStringExtra("username"));
+		 a = new accountAccess();
+		 myPref = getSharedPreferences("ExcuseApp",0);
+		
+		setUsername(myPref.getString("username", ""));
 		prepareId();
 
 
 		Button createBtn = (Button)findViewById(R.id.createBtn);
 
 		nameView = (TextView)findViewById(R.id.nameView);
-		nameView.setText(oldIntent.getStringExtra("name").toUpperCase());
+		nameView.setText(myPref.getString("name", "").toUpperCase());
 		
 		sexSpin= (Spinner) findViewById(R.id.sexSpinner);
 		ageSpin= (Spinner) findViewById(R.id.ageSpinner);
@@ -316,8 +321,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 				
 				realCreateProfile();
 				
-				Intent i = new Intent(ProfileCreate.this, ProfileGet.class);
-				i.putExtra("userId", userId);
+				Intent i = new Intent(ProfileCreate.this, UserPanel.class);
 				startActivity(i);
 
 
@@ -344,12 +348,6 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 			@Override
 			public void onTaskComplete(Object result) {
 				
-				Utilities u = new Utilities();
-				u.alert((String)result, ProfileCreate.this);
-				
-				
-
-
 			}
 		});
 
@@ -370,6 +368,12 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 			public void onTaskComplete(Object result) {
 
 				setUserId(Integer.parseInt((String)result));
+				
+				SharedPreferences.Editor editor = myPref.edit();
+				editor.putInt("userId", Integer.parseInt((String)result));
+				editor.commit();
+				
+				
 				Log.d("User Id: ","User Id: " + userId);
 			}	
 

@@ -59,12 +59,12 @@
         </activity>
         
          <activity
-            android:name=".GetTime"
+            android:name=".ExcuseOutput"
         >
             
         </activity>
         
-        
+  
         
         
     </application>

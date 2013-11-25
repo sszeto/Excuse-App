@@ -7,6 +7,7 @@ import com.ppierson.webservicetasks.RestCallback;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,16 @@ public class ProfileGet extends Activity {
 	int userId;
 	Info myInfo;
 	TextView name, age, gender, income, location, relationship, ethnicity, personality, family, brother, sister, updatedAt;
+	
+	SharedPreferences myPref;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_get);
+		
+		myPref = getSharedPreferences("ExcuseApp",0);
 		
 		g = new Gson();
 		acc = new accountAccess();
@@ -46,9 +51,9 @@ public class ProfileGet extends Activity {
 		sister = (TextView)findViewById(R.id.sisterView);
 		updatedAt = (TextView)findViewById(R.id.updatedAtView);
 
-		Intent i = getIntent();		
-		userId = i.getIntExtra("userId", -1);
-
+		
+		userId = myPref.getInt("userId", -1);
+		
 		getUser();
 
 		Button editButton = (Button)findViewById(R.id.editProfileButton);
@@ -81,9 +86,8 @@ public class ProfileGet extends Activity {
 
 			@Override
 			public void onTaskComplete(Object result) {
-
-				Info infoTest = g.fromJson((String)result, Info.class);
-				setMyInfo(infoTest);
+				
+				setMyInfo(g.fromJson((String)result, Info.class));
 				
 				
 				name.setText(myInfo.getName().toUpperCase());
@@ -98,8 +102,11 @@ public class ProfileGet extends Activity {
 				brother.setText(myInfo.getBrotherTxt());
 				sister.setText(myInfo.getSisterTxt()); 
 				updatedAt.setText(myInfo.getTimeUpdatedTxt());
-
-
+				
+				SharedPreferences.Editor editor = myPref.edit();
+				editor.putString("infoJson", (String)result);
+				editor.commit();
+				
 			}
 		});
 

@@ -2,6 +2,11 @@ package com.excuseMe.account;
 
 import java.io.Serializable;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.excuseMe.dbAccess.accountAccess;
+
 
 
 @SuppressWarnings("serial")
@@ -24,7 +29,7 @@ public class Info implements Serializable {
 		timeUpdatedTxt; 
 		
 	//Keywords
-	String 
+	String username, 
 		age,
 		gender, 
 		income, 
@@ -76,12 +81,10 @@ public class Info implements Serializable {
 	}
 	
 	
-	public boolean syncInfo(){
+	public void refreshInfo(){
 		
-		//To be implemented
-		
-		
-		return false;
+
+
 	}
 
 
@@ -422,6 +425,16 @@ public class Info implements Serializable {
 
 	public void setSisterId(int sisterId) {
 		this.sisterId = sisterId;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
 

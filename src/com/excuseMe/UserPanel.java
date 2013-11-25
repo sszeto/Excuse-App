@@ -9,10 +9,13 @@ import com.ppierson.webservicetasks.RestCallback;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class UserPanel extends Activity{
 
@@ -23,27 +26,39 @@ public class UserPanel extends Activity{
 
 	ArrayList<String> situationsArray;
 
+	SharedPreferences myPref;
+	String infoJson, username, temp;
+	Boolean loggedIn;
+
+
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_panel);
 
-		Intent i = getIntent();
-		userId = i.getIntExtra("userId", -1);		
-
 		Button getExcuseBtn = (Button)findViewById(R.id.findExcuseBtn);
 		Button editProfileBtn = (Button)findViewById(R.id.editProfileBtn);
 		Button submitExcuseBtn = (Button)findViewById(R.id.submitExcuseBtn);
+		Button logoutBtn = (Button)findViewById(R.id.logoutBtn);
+		
+		TextView welcomeMsg = (TextView)findViewById(R.id.welcomePanelView);
 
+		myPref = getSharedPreferences("ExcuseApp",0);
+		username = myPref.getString("username", null);
+		userId = myPref.getInt("userId",-1);
+		loggedIn = myPref.getBoolean("loggedIn", false);
+		infoJson = myPref.getString("infoJson", null);	
+		
+		welcomeMsg.setText("Welcome " + username + "!");
 
+		temp = "username: " + username + "   userId: "+ userId+ " logged in: " + loggedIn.toString() + "  infoJsonL= "+ infoJson;  
 
 		getExcuseBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				//util.alertNI(UserPanel.this);
+
 				setSituations();
-				getExcuse();
 
 			}
 		});
@@ -72,61 +87,37 @@ public class UserPanel extends Activity{
 
 			@Override
 			public void onClick(View v) {
-				util.alertNI(UserPanel.this);
+
+				util.alert(temp, UserPanel.this);
+
+
 			}
 		});
 
 
-	}
 
-
-
-
-	//	public void getUser(){
-	//	
-	//		
-	//		acc.getUserProfile(userId, new RestCallback(){
-	//			
-	//			
-	//			@Override
-	//			public void onTaskComplete(Object result) {
-	//				
-	//				Intent myIntent = new Intent(UserPanel.this, ProfileGet.class);
-	//				Info infoTest = g.fromJson((String)result, Info.class);
-	//				//util.alert((String)result, UserPanel.this);
-	//				
-	//				myIntent.putExtra("userInfo", infoTest);
-	//				startActivity(myIntent);
-	//				
-	//			}
-	//		});
-	//		
-	//		
-	//		
-	//	}
-	//	
-
-	public void getExcuse(){
-
-
-		acc.getUserProfile(userId, new RestCallback(){
-
+		logoutBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onTaskComplete(Object result) {
+			public void onClick(View v) {
 
-				Intent myIntent = new Intent(UserPanel.this, getSituation.class);
-				Info infoTest = g.fromJson((String)result, Info.class);
-			
-				myIntent.putExtra("userInfo", infoTest);
-				myIntent.putStringArrayListExtra("situations", situationsArray);
+				SharedPreferences.Editor editor = myPref.edit();
+				editor.putBoolean("loggedIn", false);
+				editor.putInt("userId", -1);
+				editor.putString("username", null);
+				editor.putString("infoJson", null);
+				editor.commit();
+				
+				Intent myIntent = new Intent(UserPanel.this, UserLogin.class);
 				startActivity(myIntent);
+				
+
 			}
 		});
 
 
+	}	
 
-	}
 
 
 
@@ -138,10 +129,10 @@ public class UserPanel extends Activity{
 			@Override
 			public void onTaskComplete(Object result) {
 
+				Intent myIntent = new Intent(UserPanel.this, getSituation.class);								
+				myIntent.putStringArrayListExtra("situations", g.fromJson((String)result, ArrayList.class));
 
-				setSituationsArray(g.fromJson((String)result, ArrayList.class));
-				//util.alert((String)result, UserPanel.this);
-				Log.d("","Done setting situations array");	
+				startActivity(myIntent);
 			}
 		});
 

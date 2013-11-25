@@ -12,7 +12,18 @@
     <string name="submit">Submit</string>
     <string name="edit">Edit Me</string>
     
+    <string-array name="time_array">
+        <item>Now</item>
+        <item>In a couple hours</item>
+        <item>Tomorrow or later</item>
+    </string-array>
     
+    <string-array name="time_of_day_array">
+        <item>Morning</item>
+        <item>Afternoon</item>
+        <item>Evening</item>
+    </string-array>
+   
     
     <string-array name="sex_array">
         <item>Male</item>

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,11 +29,16 @@ public class Register extends Activity {
 	
 	EditText userReg , emailReg, firstReg, lastReg, credReg;
 	
+	SharedPreferences myPref;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
+		
+		myPref = getSharedPreferences("ExcuseApp",0);
+		
 
 		Button createButton = (Button) findViewById(R.id.createButton);
 
@@ -70,11 +76,16 @@ public class Register extends Activity {
 						if(((Double) a.get("success")).intValue() != 1 ){
 							util.alert(a.get("message").toString(), Register.this);
 						}else{
+							
 							String name = firstReg.getText().toString()+ " "+lastReg.getText().toString();
 							
-							Intent i= new Intent(Register.this, ProfileCreate.class);
-							i.putExtra("username", a.get("username").toString() );
-							i.putExtra("name", name); 
+							SharedPreferences.Editor editor = myPref.edit();
+							editor.putString("username", a.get("username").toString());
+							editor.putString("name", name);
+							editor.putBoolean("loggedIn", true);
+							editor.commit();
+							
+							Intent i= new Intent(Register.this, ProfileCreate.class);							
 							startActivity(i);
 						}
 						
@@ -84,15 +95,6 @@ public class Register extends Activity {
 	
 	}
 		
-	
-	
-	private void alert(String message) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setMessage(message);
-		alert.setTitle("ExcuseMe");
-		alert.setPositiveButton("Ok", null);
-		alert.setCancelable(true);
-		alert.create().show();
-	}
+
 
 }
