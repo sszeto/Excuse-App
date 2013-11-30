@@ -332,12 +332,9 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 
 		});
 
-
-
-
-
-
 	}
+	
+	
 
 	public void realCreateProfile(){
 

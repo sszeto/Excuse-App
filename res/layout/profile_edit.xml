@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/excuse_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="448dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/editBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="14dp"
+                android:text="I'm Done!" />
+
+            <TextView
+                android:id="@+id/editNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+
+        <Spinner
+            android:id="@+id/editSexSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editAgeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editRelationshipSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+         
+         <Spinner
+            android:id="@+id/editPersonalitySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editEthnicitySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editLocationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editIncomeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/editBrotherSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        
+        <Spinner
+            android:id="@+id/editSisterSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        
+        <Spinner
+            android:id="@+id/editParentSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+    
+
+</ScrollView>

@@ -67,15 +67,7 @@ public class ProfileGet extends Activity {
 
 			}
 		});
-
-
-
-
-
-
 	}
-
-
 
 
 	public void getUser(){
@@ -114,11 +106,8 @@ public class ProfileGet extends Activity {
 
 	}
 
-
-
-
-
-
+	
+	
 
 	protected Info getMyInfo() {
 		return myInfo;
