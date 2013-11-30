@@ -124,6 +124,7 @@ public class getSituation extends Activity implements OnItemSelectedListener {
 				Intent myIntent = new Intent(getSituation.this, ExcuseOutput.class);
 				myIntent.putExtra("situationId", situationId);
 				myIntent.putExtra("timeId", timeId);
+				myIntent.putExtra("timeOfDayId", timeOfDayId);
 				startActivity(myIntent);
 				
 				

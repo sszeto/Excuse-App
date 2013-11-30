@@ -3,94 +3,189 @@ package com.excuseMe.account;
 public class excuseSituation {
 	
 	
-	String location, hobby, ethnic, reason, 
-		occupation, familyId, excuseString;
-	int personalityId, income;
-	boolean isSingleUse;
+	String txt;
+	
+	int 
+	ageId,
+	genderId,
+	incomeId,
+	locationId,
+	relationshipId,
+	ethnicityId,
+	personalityId,
+	familyId,
+	brotherId,
+	sisterId;
+	
+	int 	
+	situationId,
+	timeId,
+	timeOfDay,
+	isSingleUse;
 	
 	public excuseSituation(){
-		location = "";
-		hobby = "";
-		ethnic = "";
-		reason = "";
-		occupation = "";
-		familyId = "";
-		excuseString = "";
+		txt = "";
 		
-		isSingleUse = false;		
+		ageId = -1;
+		genderId = -1;
+		incomeId = -1;
+		locationId = -1;
+		relationshipId = -1;
+		ethnicityId = -1;
+		personalityId = -1;
+		familyId = -1;
+		brotherId = -1;
+		sisterId = -1;
+		
+		situationId = -1;
+		timeId = -1;
+		timeOfDay = -1;
+		isSingleUse = -1;
+		
+		isSingleUse = 0;		
+		
+	}
+	
+	public String toString(){
+		
+		return "Text: " + txt + "  " + 
+		"Age ID: " + ageId + "  " + 
+		"Gender ID: " + genderId + "  " + 
+		"Income ID: " + incomeId + "  " + 
+		"Locationd ID: " + locationId + "  " + 
+		"Relationship ID: " + relationshipId + "  " + 
+		"Ethnicity ID: " + ethnicityId + "  " + 
+		"Personality ID: " + personalityId + "  " + 
+		"Family ID: " + familyId + "  " + 
+		"Brother ID: " + brotherId + "  " + 
+		"Sister ID: " + sisterId + "  " + 
+		"Situation ID: " + situationId + "  " + 
+		"Time ID: " + timeId + "  " + 
+		"Time Of Day ID: " + timeOfDay + "  " + 
+		"Is Single Use ID: " + isSingleUse;
+		
 		
 	}
 
-	/**
-	 * @param location the location to set
-	 */
-	protected void setLocation(String location) {
-		this.location = location;
+	public String getTxt() {
+		return txt;
 	}
 
-	/**
-	 * @param hobby the hobby to set
-	 */
-	protected void setHobby(String hobby) {
-		this.hobby = hobby;
+	public void setTxt(String txt) {
+		this.txt = txt;
 	}
 
-	/**
-	 * @param ethnic the ethnic to set
-	 */
-	protected void setEthnic(String ethnic) {
-		this.ethnic = ethnic;
+	public int getAgeId() {
+		return ageId;
 	}
 
-	/**
-	 * @param reason the reason to set
-	 */
-	protected void setReason(String reason) {
-		this.reason = reason;
+	public void setAgeId(int ageId) {
+		this.ageId = ageId;
 	}
 
-	/**
-	 * @param occupation the occupation to set
-	 */
-	protected void setOccupation(String occupation) {
-		this.occupation = occupation;
+	public int getGenderId() {
+		return genderId;
 	}
 
-	/**
-	 * @param familyId the familyId to set
-	 */
-	protected void setFamilyId(String familyId) {
-		this.familyId = familyId;
+	public void setGenderId(int genderId) {
+		this.genderId = genderId;
 	}
 
-	/**
-	 * @param excuseString the excuseString to set
-	 */
-	protected void setExcuseString(String excuseString) {
-		this.excuseString = excuseString;
+	public int getIncomeId() {
+		return incomeId;
 	}
 
-	/**
-	 * @param personalityId the personalityId to set
-	 */
-	protected void setPersonalityId(int personalityId) {
+	public void setIncomeId(int incomeId) {
+		this.incomeId = incomeId;
+	}
+
+	public int getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+
+	public int getRelationshipId() {
+		return relationshipId;
+	}
+
+	public void setRelationshipId(int relationshipId) {
+		this.relationshipId = relationshipId;
+	}
+
+	public int getEthnicityId() {
+		return ethnicityId;
+	}
+
+	public void setEthnicityId(int ethnicityId) {
+		this.ethnicityId = ethnicityId;
+	}
+
+	public int getPersonalityId() {
+		return personalityId;
+	}
+
+	public void setPersonalityId(int personalityId) {
 		this.personalityId = personalityId;
 	}
 
-	/**
-	 * @param income the income to set
-	 */
-	protected void setIncome(int income) {
-		this.income = income;
+	public int getFamilyId() {
+		return familyId;
 	}
 
-	/**
-	 * @param isSingleUse the isSingleUse to set
-	 */
-	protected void setSingleUse(boolean isSingleUse) {
+	public void setFamilyId(int familyId) {
+		this.familyId = familyId;
+	}
+
+	public int getBrotherId() {
+		return brotherId;
+	}
+
+	public void setBrotherId(int brotherId) {
+		this.brotherId = brotherId;
+	}
+
+	public int getSisterId() {
+		return sisterId;
+	}
+
+	public void setSisterId(int sisterId) {
+		this.sisterId = sisterId;
+	}
+
+	public int getSituationId() {
+		return situationId;
+	}
+
+	public void setSituationId(int situationId) {
+		this.situationId = situationId;
+	}
+
+	public int getTimeId() {
+		return timeId;
+	}
+
+	public void setTimeId(int timeId) {
+		this.timeId = timeId;
+	}
+
+	public int getTimeOfDay() {
+		return timeOfDay;
+	}
+
+	public void setTimeOfDay(int timeOfDay) {
+		this.timeOfDay = timeOfDay;
+	}
+
+	public int getIsSingleUse() {
+		return isSingleUse;
+	}
+
+	public void setIsSingleUse(int isSingleUse) {
 		this.isSingleUse = isSingleUse;
 	}
-	
-	
 
+	
 }

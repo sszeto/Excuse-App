@@ -24,6 +24,70 @@ public class accountAccess {
 
 
 	}
+	
+	public void recordBadExcuse(int userId, int excuseId, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/badExcuse.php?userId=" +
+				userId+ "&excuseId=" + excuseId;
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	public void useExcuse(int userId, int excuseId, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/useExcuse.php?userId=" +
+				userId+ "&excuseId=" + excuseId;
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	public void getExcuse(int userId, int situationId, int timeId, int timeOfDayId, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/retrieveExcuse.php?userId=" +
+				userId+ "&situationId=" + situationId + "&timeId=" + timeId + "&timeOfDayId=" + timeOfDayId;
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	
+	
+	public void updateUserInfo(int userId, int ageId, int genderId, int incomeId,int locationId, int relationshipId,
+									int ethnicityId, int personalityId, int familyId, int brotherId,
+									    int sisterId, RestCallback callback){
+		
+		if(userId > 0){
+		
+		String getURL = "http://www.http://rantpit.com/excuseApp/updateUserInfo.php?userId=" + userId +
+				"&ageId=" + ageId +
+				"&genderId=" + genderId +
+				"&incomeId=" + incomeId +
+				"&locationId=" + locationId +
+				"&relationshipId=" + relationshipId +
+				"&ethnicityId=" + ethnicityId +
+				"&personalityId=" + personalityId +
+				"&familyId=" + familyId +
+				"&brotherId=" + brotherId +
+				"&sisterId=" + sisterId;
+		
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+		
+		}
+		
+
+	}
 
 
 

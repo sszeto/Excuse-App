@@ -101,13 +101,7 @@ public class UserPanel extends Activity{
 			@Override
 			public void onClick(View v) {
 
-				SharedPreferences.Editor editor = myPref.edit();
-				editor.putBoolean("loggedIn", false);
-				editor.putInt("userId", -1);
-				editor.putString("username", null);
-				editor.putString("infoJson", null);
-				editor.commit();
-				
+				util.logout(myPref);
 				Intent myIntent = new Intent(UserPanel.this, UserLogin.class);
 				startActivity(myIntent);
 				
