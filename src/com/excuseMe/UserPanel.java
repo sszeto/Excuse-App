@@ -123,7 +123,7 @@ public class UserPanel extends Activity{
 			@Override
 			public void onTaskComplete(Object result) {
 
-				Intent myIntent = new Intent(UserPanel.this, getSituation.class);								
+				Intent myIntent = new Intent(UserPanel.this, GetSituation.class);								
 				myIntent.putStringArrayListExtra("situations", g.fromJson((String)result, ArrayList.class));
 
 				startActivity(myIntent);

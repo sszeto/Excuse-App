@@ -68,7 +68,7 @@ public class ProfileEdit extends Activity {
 			editPersonalitySpin= (Spinner) findViewById(R.id.editPersonalitySpinner);
 			editEthnicitySpin= (Spinner) findViewById(R.id.editEthnicitySpinner);
 			editLocationSpin= (Spinner) findViewById(R.id.editLocationSpinner);
-			editIncomeSpin= (Spinner) findViewById(R.id.editLocationSpinner);
+			editIncomeSpin= (Spinner) findViewById(R.id.editIncomeSpinner);
 			editBrotherSpin= (Spinner) findViewById(R.id.editBrotherSpinner);
 			editSisterSpin= (Spinner) findViewById(R.id.editSisterSpinner);
 			editParentSpin= (Spinner) findViewById(R.id.editParentSpinner);

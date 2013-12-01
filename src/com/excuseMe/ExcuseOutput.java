@@ -193,7 +193,7 @@ public class ExcuseOutput extends Activity {
 		yesBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent myIntent = new Intent(ExcuseOutput.this, getSituation.class);
+				Intent myIntent = new Intent(ExcuseOutput.this, GetSituation.class);
 				startActivity(myIntent);
 
 			}

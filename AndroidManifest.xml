@@ -53,7 +53,7 @@
         
         
          <activity
-            android:name=".getSituation"
+            android:name=".GetSituation"
         >
             
         </activity>

@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class getSituation extends Activity implements OnItemSelectedListener {
+public class GetSituation extends Activity implements OnItemSelectedListener {
 	
 	int userId, situationId, timeId,timeOfDayId;
 	Utilities util = new Utilities();
@@ -121,7 +121,7 @@ public class getSituation extends Activity implements OnItemSelectedListener {
 			@Override
 			public void onClick(View v) {
 //				til.alertNI(getSituation.this);
-				Intent myIntent = new Intent(getSituation.this, ExcuseOutput.class);
+				Intent myIntent = new Intent(GetSituation.this, ExcuseOutput.class);
 				myIntent.putExtra("situationId", situationId);
 				myIntent.putExtra("timeId", timeId);
 				myIntent.putExtra("timeOfDayId", timeOfDayId);

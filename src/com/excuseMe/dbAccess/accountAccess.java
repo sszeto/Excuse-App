@@ -25,6 +25,18 @@ public class accountAccess {
 
 	}
 	
+	public void submitExcuse(int userId, String excuseTxt, String excuseDesc, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/submitExcuse.php?userId=" +
+				userId+ "&excuseTxt=" + excuseTxt + "&excuseDesc=" + excuseDesc;
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	
 	public void recordBadExcuse(int userId, int excuseId, RestCallback callback){
 		String getURL = "http://www.rantpit.com/excuseApp/badExcuse.php?userId=" +
 				userId+ "&excuseId=" + excuseId;
