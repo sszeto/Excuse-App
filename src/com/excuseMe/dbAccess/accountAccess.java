@@ -78,7 +78,7 @@ public class accountAccess {
 		
 		if(userId > 0){
 		
-		String getURL = "http://www.http://rantpit.com/excuseApp/updateUserInfo.php?userId=" + userId +
+		String getURL = "http://www.rantpit.com/excuseApp/updateUserInfo.php?userId=" + userId +
 				"&ageId=" + ageId +
 				"&genderId=" + genderId +
 				"&incomeId=" + incomeId +

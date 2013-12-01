@@ -1,8 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/excuse_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/welcomePanelView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Welcome!"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/submitExcuseBtn"
@@ -19,18 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Edit Profile" />
-
-    <TextView
-        android:id="@+id/welcomePanelView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="46dp"
-        android:text="Welcome!"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="View Your Profile!" />
 
     <Button
         android:id="@+id/findExcuseBtn"
@@ -45,9 +49,9 @@
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/welcomePanelView"
+        android:layout_alignBottom="@+id/welcomePanelView"
         android:layout_toRightOf="@+id/editProfileBtn"
         android:text="Logout" />
 
-</RelativeLayout>
+</TableLayout>

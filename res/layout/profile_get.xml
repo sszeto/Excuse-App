@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="34dp"
+            android:layout_toLeftOf="@+id/editProfileButton"
+        	android:gravity="center"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -23,10 +24,8 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/nameView"
-            android:layout_alignBottom="@+id/nameView"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
+            android:layout_centerVertical="true"
             android:text="@string/edit" />
 
     </RelativeLayout>
@@ -35,60 +34,70 @@
         android:id="@+id/ageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/genderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/incomeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/locationView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/relationshipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/ethnicityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/personalityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/familyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/brotherView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <TextView
         android:id="@+id/sisterView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="" />
 
     <RelativeLayout
@@ -102,6 +111,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="" />
 
     </RelativeLayout>

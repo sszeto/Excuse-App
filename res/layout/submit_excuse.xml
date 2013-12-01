@@ -16,8 +16,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Type your excuse below:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/excuseSubmitTxt"
@@ -30,7 +30,7 @@
         android:maxLength="150"
         android:maxLines="7"
         android:editable="true"
-        android:text="Type your excuse here!" >
+        android:text="" >
 
         <requestFocus />
     </EditText>
@@ -51,8 +51,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Explain where someone might use this below:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/excuseSubmitDesc"
@@ -65,7 +65,7 @@
         android:lines="4"
         android:maxLength="150"
         android:maxLines="5"
-        android:text="Explain where someone might use this here!" />
+        android:text="" />
 
     <TextView
         android:id="@+id/textView4"

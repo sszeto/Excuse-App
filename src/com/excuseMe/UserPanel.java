@@ -27,7 +27,7 @@ public class UserPanel extends Activity{
 	ArrayList<String> situationsArray;
 
 	SharedPreferences myPref;
-	String infoJson, username, temp;
+	String infoJson, username, temp, name;
 	Boolean loggedIn;
 
 
@@ -44,21 +44,21 @@ public class UserPanel extends Activity{
 		TextView welcomeMsg = (TextView)findViewById(R.id.welcomePanelView);
 
 		myPref = getSharedPreferences("ExcuseApp",0);
+		name = myPref.getString("name", null);
 		username = myPref.getString("username", null);
 		userId = myPref.getInt("userId",-1);
 		loggedIn = myPref.getBoolean("loggedIn", false);
 		infoJson = myPref.getString("infoJson", null);	
 		
-		welcomeMsg.setText("Welcome " + username + "!");
-
-		temp = "username: " + username + "   userId: "+ userId+ " logged in: " + loggedIn.toString() + "  infoJsonL= "+ infoJson;  
+		welcomeMsg.setText("Welcome " + name + "!");
 
 		getExcuseBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				setSituations();
+				Intent myIntent = new Intent(UserPanel.this, GetSituation.class);
+				startActivity(myIntent);
 
 			}
 		});
@@ -75,8 +75,7 @@ public class UserPanel extends Activity{
 				}else{
 					myIntent = new Intent(UserPanel.this, ProfileGet.class);
 				}
-
-				myIntent.putExtra("userId", userId);
+				
 				startActivity(myIntent);
 
 
@@ -88,7 +87,8 @@ public class UserPanel extends Activity{
 			@Override
 			public void onClick(View v) {
 
-				util.alert(temp, UserPanel.this);
+				Intent myIntent = new Intent(UserPanel.this, SubmitExcuse.class);
+				startActivity(myIntent);
 
 
 			}
@@ -111,27 +111,6 @@ public class UserPanel extends Activity{
 
 
 	}	
-
-
-
-
-	public void setSituations(){
-
-		acc.getSituationsDB(new RestCallback(){
-
-
-			@Override
-			public void onTaskComplete(Object result) {
-
-				Intent myIntent = new Intent(UserPanel.this, GetSituation.class);								
-				myIntent.putStringArrayListExtra("situations", g.fromJson((String)result, ArrayList.class));
-
-				startActivity(myIntent);
-			}
-		});
-
-	}
-
 
 
 

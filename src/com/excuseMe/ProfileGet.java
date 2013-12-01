@@ -63,7 +63,8 @@ public class ProfileGet extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				u.alert(myInfo.writeInfo(), ProfileGet.this);
+				Intent myIntent = new Intent(ProfileGet.this, ProfileEdit.class);
+				startActivity(myIntent);
 
 			}
 		});
@@ -82,7 +83,7 @@ public class ProfileGet extends Activity {
 				setMyInfo(g.fromJson((String)result, Info.class));
 				
 				
-				name.setText(myInfo.getName().toUpperCase());
+				name.setText(myPref.getString("name", ""));
 				age.setText(myInfo.getAgeTxt());
 				gender.setText(myInfo.getGenderTxt());
 				income.setText(myInfo.getIncomeTxt()); 

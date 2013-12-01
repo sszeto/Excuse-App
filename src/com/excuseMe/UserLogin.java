@@ -140,20 +140,22 @@ public class UserLogin extends Activity {
 
 
 	public void loginGo(){
-
-
 		acc.getUserProfile(userId, new RestCallback(){
-
 
 			@Override
 			public void onTaskComplete(Object result) {
-
+				Info myInfo = g.fromJson((String)result, Info.class);
+				
+				String formattedName = util.nameCase(myInfo.getFirstName(), myInfo.getLastName());
+				
+				
 				SharedPreferences.Editor editor = myPref.edit();
 
 				editor.putString("infoJson", (String)result);
 				editor.putString("username", username);
 				editor.putBoolean("loggedIn", true);
 				editor.putInt("userId", userId);
+				editor.putString("name", formattedName);
 				editor.commit();
 
 				Intent myIntent = new Intent(UserLogin.this, UserPanel.class);

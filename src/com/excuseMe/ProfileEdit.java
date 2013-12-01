@@ -52,6 +52,7 @@ public class ProfileEdit extends Activity {
 		 myPref = getSharedPreferences("ExcuseApp",0);
 		 userId = myPref.getInt("userId", -1);
 		 username = myPref.getString("username", "");
+		 name = myPref.getString("name", "");
 		 
 		 
 		 if(userId == -1){
@@ -128,7 +129,7 @@ public class ProfileEdit extends Activity {
 			editSisterSpin.setAdapter(sisterAdapter);
 			editParentSpin.setAdapter(parentAdapter);
 			
-		
+			setUserDetails();
 			
 
 			editSexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
@@ -349,7 +350,7 @@ public class ProfileEdit extends Activity {
 					@Override
 					public void onTaskComplete(Object result) {
 						Intent myIntent = new Intent(ProfileEdit.this, RecordUpdated.class);
-						myIntent.putExtra("message", "Your Records Have Been Updated!");
+						myIntent.putExtra("message", "Profile Updated");
 						startActivity(myIntent);
 					}
 			
@@ -366,8 +367,7 @@ public class ProfileEdit extends Activity {
 			public void onTaskComplete(Object result) {
 				
 				setMyInfo(g.fromJson((String)result, Info.class));
-				
-				setName(myInfo.getName());
+			
 				setSexId(myInfo.getGenderId());
 				setAgeId(myInfo.getAgeId());
 				setRelationshipId(myInfo.getRelationshipId());
@@ -375,8 +375,9 @@ public class ProfileEdit extends Activity {
 				setEthnicityId(myInfo.getEthnicityId());
 				setLocationId(myInfo.getLocationId());
 				setIncomeId(myInfo.getIncomeId());
-				setBrotherId(myInfo.getIncomeId());
-				setSisterId(myInfo.getFamilyId());
+				setBrotherId(myInfo.getBrotherId());
+				setSisterId(myInfo.getSisterId());
+				setParentId(myInfo.getFamilyId());
 				
 				nameView.setText(name);
 				
@@ -389,6 +390,7 @@ public class ProfileEdit extends Activity {
 				editIncomeSpin.setSelection(incomeId - 1);
 				editBrotherSpin.setSelection(brotherId - 1);
 				editSisterSpin.setSelection(sisterId - 1);
+				editParentSpin.setSelection(parentId - 1);
 			}
 		});
 

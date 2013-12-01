@@ -10,9 +10,6 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/excuseTxt"
@@ -20,18 +17,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Excuse"
+            android:layout_gravity="center"
+        	android:gravity="center"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-    </RelativeLayout>
-
     <TextView
-        android:id="@+id/lineTwo"
+        android:id="@+id/endMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Sorry, we're all out of excuses for now"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textView4"
@@ -40,9 +39,6 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/questionTxt"
@@ -50,10 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+        	android:gravity="center"
             android:text="Was this helpful?"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView6"

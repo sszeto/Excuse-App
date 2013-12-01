@@ -15,7 +15,10 @@ public class Info implements Serializable {
 
 	
 	//Pretty sentences
-	String name, 
+	String 
+		firstName,
+		lastName,
+		name, 
 		ageTxt,
 		genderTxt,
 		incomeTxt,
@@ -435,6 +438,26 @@ public class Info implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
 

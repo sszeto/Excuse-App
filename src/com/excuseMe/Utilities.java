@@ -13,12 +13,21 @@ public class Utilities {
 	
 	
 	
+	public String nameCase(String first, String last){
+		
+		return first.substring(0,1).toUpperCase() + first.substring(1).toLowerCase() + " " + 
+				last.substring(0,1).toUpperCase() + last.substring(1).toLowerCase();
+
+	}
+	
+	
 	public void logout(SharedPreferences myPref){
 		SharedPreferences.Editor editor = myPref.edit();
 		editor.putBoolean("loggedIn", false);
 		editor.putInt("userId", -1);
 		editor.putString("username", null);
 		editor.putString("infoJson", null);
+		editor.putString("name", null);
 		editor.commit();
 	}
 	

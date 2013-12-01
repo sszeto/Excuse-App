@@ -85,13 +85,13 @@
     </string-array>
     
     <string-array name="sister_array">
-        <item>I have no Sisters</item>
+        <item>I have no sisters</item>
         <item>I have at least 1 sister</item>
     </string-array>
     
     <string-array name="family_array">
         <item>I live with my parents</item>
-        <item>I own a house or apartment</item>
+        <item>I own a house or an apartment</item>
     </string-array>
     
 

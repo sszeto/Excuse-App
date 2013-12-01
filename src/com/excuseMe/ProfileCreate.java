@@ -49,7 +49,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		Button createBtn = (Button)findViewById(R.id.createBtn);
 
 		nameView = (TextView)findViewById(R.id.nameView);
-		nameView.setText(myPref.getString("name", "").toUpperCase());
+		nameView.setText(myPref.getString("name", ""));
 		
 		sexSpin= (Spinner) findViewById(R.id.sexSpinner);
 		ageSpin= (Spinner) findViewById(R.id.ageSpinner);

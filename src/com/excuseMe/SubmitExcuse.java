@@ -18,67 +18,75 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SubmitExcuse extends Activity {
-	
+
 	Button submitBtn;
 	TextView excuseTxtView, excuseDescView;
-	
+
 	String excuseTxt, excuseDesc;
-	
+
 	SharedPreferences pref;
 	accountAccess a;
 	Utilities util;
-	
+
 	int userId;
-	
-	
+
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.submit_excuse);
-		
+
 		util = new Utilities();
 		a = new accountAccess();
 		pref = getSharedPreferences("ExcuseApp",0);
-		
+
 		userId = pref.getInt("userId", -1);
-		
-		submitBtn = (Button)findViewById(R.id.nextBtn);
+
+		submitBtn = (Button)findViewById(R.id.submitExcuseBtn);
 		excuseTxtView = (TextView)findViewById(R.id.excuseSubmitTxt);
 		excuseDescView = (TextView)findViewById(R.id.excuseSubmitDesc);
-		
-		
+
+
 		submitBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				excuseTxt = excuseTxtView.getText().toString();
 				excuseDesc = excuseDescView.getText().toString();
+
+				if(excuseTxt.length() < 10){
+					util.alert("Your excuse is too short!", SubmitExcuse.this);
+				}else if(excuseDesc.length() < 4){
+					util.alert("Your description is too short!", SubmitExcuse.this);
+				}else{
+					realSubmitExcuse();
+				}
 				
-				realSubmitExcuse();
+				
 			}
 		});
-		
-		
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	private void realSubmitExcuse(){
 		a.submitExcuse(userId, excuseTxt, excuseDesc, 
 				new RestCallback(){
-					@Override
-					public void onTaskComplete(Object result) {
-						Intent myIntent = new Intent(SubmitExcuse.this, RecordUpdated.class);
-						myIntent.putExtra("message", "Your excuse has been submitted!");
-						startActivity(myIntent);
-					}
+			@Override
+			public void onTaskComplete(Object result) {
+				Intent myIntent = new Intent(SubmitExcuse.this, RecordUpdated.class);
+				myIntent.putExtra("message", "Excuse Submitted");
+				startActivity(myIntent);
+			}
 		});
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 }

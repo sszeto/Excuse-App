@@ -66,7 +66,8 @@ public class ExcuseOutput extends Activity {
 		
 		excuseTxt = (TextView)findViewById(R.id.excuseTxt);
 		questionTxt = (TextView)findViewById(R.id.questionTxt);
-		lineTwo = (TextView)findViewById(R.id.lineTwo);
+		lineTwo = (TextView)findViewById(R.id.endMsg);
+		lineTwo.setVisibility(View.INVISIBLE);
 		
 		
 		if(userId < 0 ){
@@ -138,7 +139,7 @@ public class ExcuseOutput extends Activity {
 					public void onTaskComplete(Object result) {
 						Log.d("", "Status: " + (String)result );
 						
-						excuseTxt.setText("Your Response Has Been Logged");
+						excuseTxt.setText("Response Logged");
 						lineTwo.setText("Thank You!");
 						questionTxt.setText("What would you like to do?");	
 						
@@ -170,11 +171,11 @@ public class ExcuseOutput extends Activity {
 	private void nextExcuse(){
 		if(idIterator.hasNext()){
 			currentId = Integer.parseInt((String)idIterator.next());
-			excuseTxt.setText("Excuse Id: " + currentId + 
-					" Excuse: " + (String)excuseList.get(Integer.toString(currentId)));	
+			excuseTxt.setText((String)excuseList.get(Integer.toString(currentId)) + "!");	
 		}
 		else{
-			excuseTxt.setText("Sorry, no more available excuses at this time!");
+			excuseTxt.setVisibility(View.INVISIBLE);
+			lineTwo.setVisibility(View.VISIBLE);
 			questionTxt.setText("What would you like to do?");	
 			
 			yesBtn.setText("Find Another Excuse!");
