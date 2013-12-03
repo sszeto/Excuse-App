@@ -23,8 +23,7 @@
         <item>Afternoon</item>
         <item>Evening</item>
     </string-array>
-   
-    
+  
     <string-array name="sex_array">
         <item>Male</item>
         <item>Female</item>
@@ -47,10 +46,9 @@
     </string-array>
     
     <string-array name="personality_array">
-        <item>Temp 1</item>
-        <item>Temp 2</item>
-        <item>Temp 3</item>
-        <item>Temp 4</item>    
+        <item>Lazy</item>
+        <item>Proactive</item>
+        <item>Easy going</item>
     </string-array>
     
     <string-array name="ethnicity_array">

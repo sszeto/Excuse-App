@@ -40,6 +40,13 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 		
 		userId = pref.getInt("userId", -1);
 		
+		if(userId == -1){
+			util.logout(pref);
+			Intent myIntent = new Intent(SituationRead.this, UserLoginMain.class);
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
+			startActivity(myIntent);
+		}
+		
 		setSituations();
 		
 		Button nextBtn = (Button)findViewById(R.id.submitSituationBtn);
@@ -62,7 +69,7 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 		
 		
 
-		time.setOnItemSelectedListener(new  OnItemSelectedListener(){
+		time.setOnItemSelectedListener(new  OnItemSelectedListener(){ // in Db, ID = pos +1 for all spinners
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, 
@@ -105,11 +112,10 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 		
 		
 		
-		nextBtn.setOnClickListener(new View.OnClickListener() {
+		nextBtn.setOnClickListener(new View.OnClickListener() {  // passes all information to next screen 
 
 			@Override
 			public void onClick(View v) {
-//				til.alertNI(getSituation.this);
 				Intent myIntent = new Intent(SituationRead.this, ExcuseOutput.class);
 				myIntent.putExtra("situationId", situationId);
 				myIntent.putExtra("timeId", timeId);
@@ -126,7 +132,7 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 	
 	
 	
-	public void setSituations(){
+	public void setSituations(){    // grabs all situations from the current db
 		acc.getSituationsDB(new RestCallback(){
 			@Override
 			public void onTaskComplete(Object result) {								

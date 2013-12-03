@@ -18,356 +18,361 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ProfileEdit extends Activity {
-	
-	
+
+
 	int userId;
 
 	String username, name;
-	
+
 	TextView nameView;
 
 	Spinner editSexSpin, editAgeSpin, editRelationshipSpin, editPersonalitySpin, editEthnicitySpin, editLocationSpin, 
-			editIncomeSpin, editBrotherSpin, editSisterSpin, editParentSpin;
+	editIncomeSpin, editBrotherSpin, editSisterSpin, editParentSpin;
 
 	int sexId, ageId, relationshipId, personalityId, ethnicityId, locationId, incomeId
 	,brotherId, sisterId, parentId;
-	
+
 	Info myInfo;
-	
+
 	AccountAccessDB a;
 	Gson g;
 	SharedPreferences myPref;
-	
+
 	Button editBtn;
-	
-	
-	
+	Utilities u;
+
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_update);
+
+		a = new AccountAccessDB();
+		g = new Gson();
+		u = new Utilities();
 		
-		 a = new AccountAccessDB();
-		 g = new Gson();
-		 myPref = getSharedPreferences("ExcuseApp",0);
-		 userId = myPref.getInt("userId", -1);
-		 username = myPref.getString("username", "");
-		 name = myPref.getString("name", "");
-		 
-		 
-		 if(userId == -1){
-			 Intent i = new Intent(ProfileEdit.this, UserLoginMain.class);
-			 startActivity(i);
-		 }
-		 
-		 	nameView = (TextView)findViewById(R.id.editNameView);
-		 	editBtn = (Button)findViewById(R.id.editBtn);
-		 	
-			editSexSpin= (Spinner) findViewById(R.id.editSexSpinner);
-			editAgeSpin= (Spinner) findViewById(R.id.editAgeSpinner);
-			editRelationshipSpin= (Spinner) findViewById(R.id.editRelationshipSpinner);
-			editPersonalitySpin= (Spinner) findViewById(R.id.editPersonalitySpinner);
-			editEthnicitySpin= (Spinner) findViewById(R.id.editEthnicitySpinner);
-			editLocationSpin= (Spinner) findViewById(R.id.editLocationSpinner);
-			editIncomeSpin= (Spinner) findViewById(R.id.editIncomeSpinner);
-			editBrotherSpin= (Spinner) findViewById(R.id.editBrotherSpinner);
-			editSisterSpin= (Spinner) findViewById(R.id.editSisterSpinner);
-			editParentSpin= (Spinner) findViewById(R.id.editParentSpinner);
-		 
-
-			ArrayAdapter<CharSequence> sexAdapter = ArrayAdapter.createFromResource(this,
-					R.array.sex_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> ageAdapter = ArrayAdapter.createFromResource(this,
-					R.array.age_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(this,
-					R.array.relationship_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> personalityAdapter = ArrayAdapter.createFromResource(this,
-					R.array.personality_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> ethnicityAdapter = ArrayAdapter.createFromResource(this,
-					R.array.ethnicity_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> locationAdapter = ArrayAdapter.createFromResource(this,
-					R.array.location_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> incomeAdapter = ArrayAdapter.createFromResource(this,
-					R.array.income_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> brotherAdapter = ArrayAdapter.createFromResource(this,
-					R.array.brother_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> sisterAdapter = ArrayAdapter.createFromResource(this,
-					R.array.sister_array, android.R.layout.simple_spinner_item);
-
-			ArrayAdapter<CharSequence> parentAdapter = ArrayAdapter.createFromResource(this,
-					R.array.family_array, android.R.layout.simple_spinner_item);
-			
-			
-			sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			relationshipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			personalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			ethnicityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			incomeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			brotherAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			sisterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			parentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			
-			editSexSpin.setAdapter(sexAdapter);
-			editAgeSpin.setAdapter(ageAdapter);
-			editRelationshipSpin.setAdapter(relationshipAdapter);
-			editPersonalitySpin.setAdapter(personalityAdapter);
-			editEthnicitySpin.setAdapter(ethnicityAdapter);
-			editLocationSpin.setAdapter(locationAdapter);
-			editIncomeSpin.setAdapter(incomeAdapter);
-			editBrotherSpin.setAdapter(brotherAdapter);
-			editSisterSpin.setAdapter(sisterAdapter);
-			editParentSpin.setAdapter(parentAdapter);
-			
-			setUserDetails();
-			
-
-			editSexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setSexId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editAgeSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setAgeId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editRelationshipSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setRelationshipId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editPersonalitySpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setPersonalityId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editEthnicitySpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setEthnicityId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editLocationSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setLocationId(pos+1);
-					;
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-			editIncomeSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setIncomeId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editBrotherSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setBrotherId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editSisterSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setSisterId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-			editParentSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, 
-						int pos, long id) {
-
-					setParentId(pos+1);
-
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// Do Nothing
-
-				}
-
-			});
-
-
-
-
-
-
-			editBtn.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View w) {
-
-					realUpdateProfile();
-
-
-				}
-
-
-			});
-
+		myPref = getSharedPreferences("ExcuseApp",0);
+		userId = myPref.getInt("userId", -1);
+		username = myPref.getString("username", "");
+		name = myPref.getString("name", "");
+
+
+		if(userId == -1){
+			u.logout(myPref);
+			Intent myIntent = new Intent(ProfileEdit.this, UserLoginMain.class);
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
+			startActivity(myIntent);
 		}
-			
-	
-	
-	public void realUpdateProfile(){
+
+		nameView = (TextView)findViewById(R.id.editNameView);
+		editBtn = (Button)findViewById(R.id.editBtn);
+
+		editSexSpin= (Spinner) findViewById(R.id.editSexSpinner);
+		editAgeSpin= (Spinner) findViewById(R.id.editAgeSpinner);
+		editRelationshipSpin= (Spinner) findViewById(R.id.editRelationshipSpinner);
+		editPersonalitySpin= (Spinner) findViewById(R.id.editPersonalitySpinner);
+		editEthnicitySpin= (Spinner) findViewById(R.id.editEthnicitySpinner);
+		editLocationSpin= (Spinner) findViewById(R.id.editLocationSpinner);
+		editIncomeSpin= (Spinner) findViewById(R.id.editIncomeSpinner);
+		editBrotherSpin= (Spinner) findViewById(R.id.editBrotherSpinner);
+		editSisterSpin= (Spinner) findViewById(R.id.editSisterSpinner);
+		editParentSpin= (Spinner) findViewById(R.id.editParentSpinner);
+
+
+		ArrayAdapter<CharSequence> sexAdapter = ArrayAdapter.createFromResource(this,
+				R.array.sex_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> ageAdapter = ArrayAdapter.createFromResource(this,
+				R.array.age_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(this,
+				R.array.relationship_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> personalityAdapter = ArrayAdapter.createFromResource(this,
+				R.array.personality_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> ethnicityAdapter = ArrayAdapter.createFromResource(this,
+				R.array.ethnicity_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> locationAdapter = ArrayAdapter.createFromResource(this,
+				R.array.location_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> incomeAdapter = ArrayAdapter.createFromResource(this,
+				R.array.income_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> brotherAdapter = ArrayAdapter.createFromResource(this,
+				R.array.brother_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> sisterAdapter = ArrayAdapter.createFromResource(this,
+				R.array.sister_array, android.R.layout.simple_spinner_item);
+
+		ArrayAdapter<CharSequence> parentAdapter = ArrayAdapter.createFromResource(this,
+				R.array.family_array, android.R.layout.simple_spinner_item);
+
+
+		sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		relationshipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		personalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ethnicityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		incomeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		brotherAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		sisterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		parentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+		editSexSpin.setAdapter(sexAdapter);
+		editAgeSpin.setAdapter(ageAdapter);
+		editRelationshipSpin.setAdapter(relationshipAdapter);
+		editPersonalitySpin.setAdapter(personalityAdapter);
+		editEthnicitySpin.setAdapter(ethnicityAdapter);
+		editLocationSpin.setAdapter(locationAdapter);
+		editIncomeSpin.setAdapter(incomeAdapter);
+		editBrotherSpin.setAdapter(brotherAdapter);
+		editSisterSpin.setAdapter(sisterAdapter);
+		editParentSpin.setAdapter(parentAdapter);
+
+		setUserDetails();  //set all spinners to correct items
+
+
+		editSexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { //Id in DB = pos + 1 for all spinners
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setSexId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editAgeSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setAgeId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editRelationshipSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setRelationshipId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editPersonalitySpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setPersonalityId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editEthnicitySpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setEthnicityId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editLocationSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setLocationId(pos+1);
+				;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+		editIncomeSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setIncomeId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editBrotherSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setBrotherId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editSisterSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setSisterId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+		editParentSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, 
+					int pos, long id) {
+
+				setParentId(pos+1);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// Do Nothing
+
+			}
+
+		});
+
+
+
+
+
+
+		editBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View w) {
+
+				realUpdateProfile();
+
+
+			}
+
+
+		});
+
+	}
+
+
+
+	public void realUpdateProfile(){  //update profile
 		a.updateUserInfo(userId, ageId, sexId, incomeId, locationId, relationshipId, ethnicityId, personalityId, parentId, brotherId, sisterId,
-				
+
 				new RestCallback(){
 
-					@Override
-					public void onTaskComplete(Object result) {
-						Intent myIntent = new Intent(ProfileEdit.this, RecordUpdated.class);
-						myIntent.putExtra("message", "Profile Updated");
-						startActivity(myIntent);
-					}
-			
+			@Override
+			public void onTaskComplete(Object result) {
+				Intent myIntent = new Intent(ProfileEdit.this, RecordUpdated.class);
+				myIntent.putExtra("message", "Profile Updated");   // passes message to RecordUpdated to display
+				startActivity(myIntent);
+			}
+
 		});	
 	}
-		
-	
-	
-	
-	
-	public void setUserDetails(){
+
+
+
+
+
+	public void setUserDetails(){    //sets all spinners 
 		a.getUserProfile(userId, new RestCallback(){
 			@Override
 			public void onTaskComplete(Object result) {
-				
+
 				setMyInfo(g.fromJson((String)result, Info.class));
-			
+
 				setSexId(myInfo.getGenderId());
 				setAgeId(myInfo.getAgeId());
 				setRelationshipId(myInfo.getRelationshipId());
@@ -378,9 +383,9 @@ public class ProfileEdit extends Activity {
 				setBrotherId(myInfo.getBrotherId());
 				setSisterId(myInfo.getSisterId());
 				setParentId(myInfo.getFamilyId());
-				
+
 				nameView.setText(name);
-				
+
 				editSexSpin.setSelection(sexId - 1);
 				editAgeSpin.setSelection(ageId - 1);
 				editRelationshipSpin.setSelection(relationshipId - 1);
@@ -734,17 +739,17 @@ public class ProfileEdit extends Activity {
 	private void setMyPref(SharedPreferences myPref) {
 		this.myPref = myPref;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

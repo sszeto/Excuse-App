@@ -68,9 +68,6 @@ public class ExcuseCreate extends Activity {
 
 	}
 
-
-
-
 	private void realSubmitExcuse(){
 		a.submitExcuse(userId, excuseTxt, excuseDesc, 
 				new RestCallback(){
@@ -82,11 +79,6 @@ public class ExcuseCreate extends Activity {
 			}
 		});
 	}
-
-
-
-
-
 
 
 }

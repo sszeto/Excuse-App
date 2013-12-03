@@ -18,7 +18,8 @@ public class Utilities {
 		
 	}
 	
-	public void setGlobalId(String username, SharedPreferences pref){
+	
+	public void setGlobalId(String username, SharedPreferences pref){    //sets ID in shared preference
 		setPref(pref);
 		a = new AccountAccessDB();
 		
@@ -35,7 +36,7 @@ public class Utilities {
 		});
 	}
 	
-	public String nameCase(String first, String last){
+	public String nameCase(String first, String last){  // formats name into name case for messages
 		
 		return first.substring(0,1).toUpperCase() + first.substring(1).toLowerCase() + " " + 
 				last.substring(0,1).toUpperCase() + last.substring(1).toLowerCase();
@@ -43,7 +44,7 @@ public class Utilities {
 	}
 	
 	
-	public void logout(SharedPreferences myPref){
+	public void logout(SharedPreferences myPref){ // logs the user out
 		SharedPreferences.Editor editor = myPref.edit();
 		editor.putBoolean("loggedIn", false);
 		editor.putInt("userId", -1);
@@ -53,7 +54,7 @@ public class Utilities {
 		editor.commit();
 	}
 	
-	public void alert(String message, Context cont){
+	public void alert(String message, Context cont){  //alert screen for user
 		AlertDialog.Builder alert = new AlertDialog.Builder(cont);
 		alert.setMessage(message);
 		alert.setTitle("ExcuseMe");
@@ -62,16 +63,6 @@ public class Utilities {
 		alert.create().show();
 	}
 	
-	
-	
-	public void alertNI(Context cont){
-		AlertDialog.Builder alert = new AlertDialog.Builder(cont);
-		alert.setMessage("Not Yet Implemented");
-		alert.setTitle("ExcuseMe");
-		alert.setPositiveButton("Ok", null);
-		alert.setCancelable(true);
-		alert.create().show();
-	}
 
 	private SharedPreferences getPref() {
 		return pref;

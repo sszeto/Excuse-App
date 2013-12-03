@@ -36,7 +36,15 @@ public class PasswordUpdate extends Activity {
 		u= new Utilities();
 		pref = getSharedPreferences("ExcuseApp",0);
 		
-		username = pref.getString("username", "");
+		username = pref.getString("username", ""); //get username
+		
+		if(username.equals("")){
+			u.logout(pref);
+			Intent myIntent = new Intent(PasswordUpdate.this, UserLoginMain.class);
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Try Again!");
+			startActivity(myIntent);
+		}
+		
 		
 		finishTxt = (TextView)findViewById(R.id.finishedTxt);
 		finishTxt.setVisibility(View.INVISIBLE);
@@ -50,11 +58,11 @@ public class PasswordUpdate extends Activity {
 		resetBtn = (Button)findViewById(R.id.resetPassBtn);
 		resetRecovQuestions = (Button)findViewById(R.id.resetRecovBtn);
 		
-		resetRecovQuestions.setVisibility(View.INVISIBLE);
+		resetRecovQuestions.setVisibility(View.INVISIBLE);   //button used for end action
 				
 		
 
-		resetBtn.setOnClickListener(new View.OnClickListener() {
+		resetBtn.setOnClickListener(new View.OnClickListener() {  //user pressed reset
 
 			@Override
 			public void onClick(View w) {
@@ -62,12 +70,12 @@ public class PasswordUpdate extends Activity {
 			}
 		});
 		
-		resetRecovQuestions.setOnClickListener(new View.OnClickListener() {
+		resetRecovQuestions.setOnClickListener(new View.OnClickListener() {  //button used for end action -- passes intent to set recovery
 
 			@Override
 			public void onClick(View w) {
 				Intent i = new Intent(PasswordUpdate.this, RecoveryUpdate.class);
-				i.putExtra("fromPass", true);
+				i.putExtra("fromPass", true); //let recovery screen know it came from here
 				startActivity(i);
 			}
 		});
@@ -76,18 +84,18 @@ public class PasswordUpdate extends Activity {
 	}
 	
 	
-	public void resetPssword(){
+	public void resetPssword(){  // reset password
 		
 		pass = passTxt.getText().toString();
 		passConfirm = passConfirmTxt.getText().toString();
 		
-		if(pass.equals(passConfirm)){
+		if(pass.equals(passConfirm)){   //passwords match?
 			username = pref.getString("username", "");
 			a.updatePassword(username, pass, 
 					
 					new RestCallback(){
 						@Override
-						public void onTaskComplete(Object result) {
+						public void onTaskComplete(Object result) {    //performing end actions
 							
 							passTxt.setVisibility(View.INVISIBLE);
 							passConfirmTxt.setVisibility(View.INVISIBLE);
@@ -102,7 +110,7 @@ public class PasswordUpdate extends Activity {
 							resetRecovQuestions.setVisibility(View.VISIBLE);
 							
 							
-							resetBtn.setOnClickListener(new View.OnClickListener() {
+							resetBtn.setOnClickListener(new View.OnClickListener() {   //"rewire" reset button to "finish"
 
 								@Override
 								public void onClick(View w) {
@@ -113,7 +121,7 @@ public class PasswordUpdate extends Activity {
 								}
 							});
 						}});
-		}else{
+		}else{  // passwords didn't match
 			u.alert("Passwords do not match", PasswordUpdate.this);
 		}
 		

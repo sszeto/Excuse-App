@@ -120,7 +120,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		parentSpin.setAdapter(parentAdapter);
 
 
-		sexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
+		sexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() {     // ID in DB = pos + 1 for all spinners
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, 
@@ -318,7 +318,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 			@Override
 			public void onClick(View w) {
 				
-				realCreateProfile();
+				realCreateProfile();  //create profile
 				
 				Intent i = new Intent(ProfileCreate.this, UserPanel.class);
 				startActivity(i);
@@ -336,8 +336,6 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 	
 
 	public void realCreateProfile(){
-
-
 		a.createUserInfo(userId, ageId, sexId, incomeId, locationId, relationshipId, ethnicityId, personalityId, parentId, brotherId, sisterId, 
 				new RestCallback(){
 

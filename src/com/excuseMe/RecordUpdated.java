@@ -20,7 +20,7 @@ public class RecordUpdated extends Activity{
 		TextView message = (TextView)findViewById(R.id.messageView);
 		TextView thanks = (TextView)findViewById(R.id.thanksView);
 		
-		message.setText(oldIntent.getStringExtra("message"));
+		message.setText(oldIntent.getStringExtra("message"));    // grabs message from last screen -- required
 		thanks.setText("Thank you " + pref.getString("name", "") + "!");
 
 		
@@ -29,7 +29,7 @@ public class RecordUpdated extends Activity{
 
 
 
-		doneBtn.setOnClickListener(
+		doneBtn.setOnClickListener(    // returns user to user panel
 
 				new View.OnClickListener() {
 

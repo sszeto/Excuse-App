@@ -31,7 +31,7 @@ public class ExcuseOutput extends Activity {
 	Set idSet;
 	Iterator idIterator;
 
-	HashMap excuseList = new HashMap();
+	HashMap excuseList;
 	TextView excuseTxt, questionTxt, lineTwo;
 	
 	Button nextBtn, yesBtn, noBtn;
@@ -47,6 +47,8 @@ public class ExcuseOutput extends Activity {
 		gson = new Gson();
 		info = new Info();
 		a = new AccountAccessDB();
+		excuseList = new HashMap();
+		
 		pref = getSharedPreferences("ExcuseApp",0);
 		
 		
@@ -57,12 +59,9 @@ public class ExcuseOutput extends Activity {
 		userId= pref.getInt("userId", -1);
 		
 		
-		
-		
 		yesBtn = (Button)findViewById(R.id.yesBtn);
 		noBtn = (Button)findViewById(R.id.noBtn);
-		nextBtn = (Button)findViewById(R.id.nextBtn);
-		
+		nextBtn = (Button)findViewById(R.id.nextBtn);	
 		
 		excuseTxt = (TextView)findViewById(R.id.excuseTxt);
 		questionTxt = (TextView)findViewById(R.id.questionTxt);
@@ -78,14 +77,14 @@ public class ExcuseOutput extends Activity {
 		}
 		
 		
-		yesBtn.setOnClickListener(new View.OnClickListener() {
+		yesBtn.setOnClickListener(new View.OnClickListener() { //User selected excuse
 			@Override
 			public void onClick(View v) {
 				realUseExcuse();
 			}
 		});
 		
-		nextBtn.setOnClickListener(new View.OnClickListener() {
+		nextBtn.setOnClickListener(new View.OnClickListener() { //User selected next button
 			@Override
 			public void onClick(View v) {
 				nextExcuse();
@@ -94,33 +93,28 @@ public class ExcuseOutput extends Activity {
 		});
 		
 		
-		noBtn.setOnClickListener(new View.OnClickListener() {
+		noBtn.setOnClickListener(new View.OnClickListener() { //User opted to never see excuse again
 			@Override
 			public void onClick(View v) {
 				realBadExcuse();
 
 			}
 		});
-		
-		
-		
-
-		
 	}
 	
 
 	
 	
-	private void realGetExcuse(){		
+	private void realGetExcuse(){		//Get excuse from DB
 		a.getExcuse(userId, situationId, timeId, timeOfDayId,
 				
 				new RestCallback(){
 					@Override
-					public void onTaskComplete(Object result) {
+					public void onTaskComplete(Object result) {    //Returns JSON of Applicable Excuses
 						setExcuseList(gson.fromJson((String)result, HashMap.class));	
-						setIdSet(excuseList.keySet());
-						setIdIterator(idSet.iterator());		
-						nextExcuse();	
+						setIdSet(excuseList.keySet());        //Set list of "Excuse Ids" to dedicated set
+						setIdIterator(idSet.iterator());	//Iterate through selected Id's
+						nextExcuse();	 //get next action
 						
 						Log.d("", "Got Excuse: " + (String)result + "!" );
 						
@@ -132,11 +126,11 @@ public class ExcuseOutput extends Activity {
 	}
 	
 	
-	private void realUseExcuse(){
+	private void realUseExcuse(){     // User used excuse
 		a.useExcuse(userId, currentId,
 				new RestCallback(){
 					@Override
-					public void onTaskComplete(Object result) {
+					public void onTaskComplete(Object result) {    //Steps to take after user finishes
 						Log.d("", "Status: " + (String)result );
 						
 						excuseTxt.setText("Response Logged");
@@ -154,13 +148,13 @@ public class ExcuseOutput extends Activity {
 	}
 	
 	
-	private void realBadExcuse(){
+	private void realBadExcuse(){   //Never show excuse again
 		a.recordBadExcuse(userId, currentId,
 				new RestCallback(){
 					@Override
 					public void onTaskComplete(Object result) {
 						Log.d("", "Status: " + (String)result );
-						nextExcuse();
+						nextExcuse();  //Continue function
 					}
 		});
 	}
@@ -168,7 +162,7 @@ public class ExcuseOutput extends Activity {
 
 	
 	
-	private void nextExcuse(){
+	private void nextExcuse(){   //Grab next excuse from hashmap  ... If finished, prompt user for next action
 		if(idIterator.hasNext()){
 			currentId = Integer.parseInt((String)idIterator.next());
 			excuseTxt.setText((String)excuseList.get(Integer.toString(currentId)) + "!");	
@@ -189,7 +183,7 @@ public class ExcuseOutput extends Activity {
 	
 	
 	
-	private void setEndButtonAction(){
+	private void setEndButtonAction(){    //"Rewire" buttons for end actions
 		
 		yesBtn.setOnClickListener(new View.OnClickListener() {
 			@Override

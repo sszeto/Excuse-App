@@ -51,8 +51,15 @@ public class UserPanel extends Activity{
 		infoJson = myPref.getString("infoJson", null);	
 		
 		welcomeMsg.setText("Welcome " + name + "!");
+		
+		if(userId == -1 && username == null){
+			util.logout(myPref);
+			Intent myIntent = new Intent(UserPanel.this, UserLoginMain.class);
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
+			startActivity(myIntent);
+		}
 
-		getExcuseBtn.setOnClickListener(new View.OnClickListener() {
+		getExcuseBtn.setOnClickListener(new View.OnClickListener() {  // starts the get excuse process 
 
 			@Override
 			public void onClick(View v) {
@@ -63,7 +70,7 @@ public class UserPanel extends Activity{
 			}
 		});
 
-		editProfileBtn.setOnClickListener(new View.OnClickListener() {
+		editProfileBtn.setOnClickListener(new View.OnClickListener() {  //edits profile
 
 			@Override
 			public void onClick(View v) {
@@ -71,7 +78,9 @@ public class UserPanel extends Activity{
 				Intent myIntent;
 
 				if(userId == -1){
-					myIntent = new Intent(UserPanel.this, ProfileCreate.class);
+					util.logout(myPref);
+					myIntent = new Intent(UserPanel.this, UserLoginMain.class);
+					myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
 				}else{
 					myIntent = new Intent(UserPanel.this, ProfileGet.class);
 				}
@@ -82,7 +91,7 @@ public class UserPanel extends Activity{
 			}
 		});
 
-		submitExcuseBtn.setOnClickListener(new View.OnClickListener() {
+		submitExcuseBtn.setOnClickListener(new View.OnClickListener() { // user submits an excuse
 
 			@Override
 			public void onClick(View v) {
@@ -96,7 +105,7 @@ public class UserPanel extends Activity{
 
 
 
-		logoutBtn.setOnClickListener(new View.OnClickListener() {
+		logoutBtn.setOnClickListener(new View.OnClickListener() {  //logout
 
 			@Override
 			public void onClick(View v) {

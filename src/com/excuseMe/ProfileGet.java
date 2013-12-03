@@ -53,8 +53,14 @@ public class ProfileGet extends Activity {
 
 		
 		userId = myPref.getInt("userId", -1);
+		if(userId == -1){
+			u.logout(myPref);
+			Intent myIntent = new Intent(ProfileGet.this, UserLoginMain.class);
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
+			startActivity(myIntent);
+		}
 		
-		getUser();
+		getUser();  //sets all user details
 
 		Button editButton = (Button)findViewById(R.id.editProfileButton);
 

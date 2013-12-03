@@ -32,26 +32,26 @@ public class UserLoginMain extends Activity {
 	AccountAccessDB acc = new AccountAccessDB();
 	Gson g = new Gson();
 	SharedPreferences myPref;
-	String username;
+	String username, cred;
 	int userId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_login_main);
-		
+
 		myPref = getSharedPreferences("ExcuseApp", Context.MODE_PRIVATE);
 
-		if(myPref.getBoolean("loggedIn", false) == true){
+		if(myPref.getBoolean("loggedIn", false) == true){  // if user is logged in, go to the user panel
 			Intent i = new Intent(this, UserPanel.class);
 			startActivity(i);
 		}
-		
+
 		Intent oldIntent = getIntent();
 		String msg = oldIntent.getStringExtra("msg");
-		
-		if(msg != null){
-			util.alert(msg, this);
+
+		if(msg != null){   // did this screen get a message?
+			util.alert(msg, this); //display it
 		}
 
 		Button loginButton = (Button)findViewById(R.id.loginButton); 
@@ -60,16 +60,16 @@ public class UserLoginMain extends Activity {
 
 
 
-		loginButton.setOnClickListener(new View.OnClickListener() {
+		loginButton.setOnClickListener(new View.OnClickListener() {   //logs user in
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) { 
 				realLoginCheck();
 			}
 		});
 
 
-		createNewButton.setOnClickListener( new View.OnClickListener() {
+		createNewButton.setOnClickListener( new View.OnClickListener() {  //register for a new account
 
 			@Override
 			public void onClick(View v) {
@@ -81,7 +81,7 @@ public class UserLoginMain extends Activity {
 
 
 
-		forgotButton.setOnClickListener( new View.OnClickListener() {
+		forgotButton.setOnClickListener( new View.OnClickListener() {  //resets password using recovery questions
 
 			@Override
 			public void onClick(View v) {
@@ -103,28 +103,38 @@ public class UserLoginMain extends Activity {
 		EditText credText = (EditText)findViewById(R.id.password);
 
 		username = usernameText.getText().toString();
+		cred = credText.getText().toString();
 
-		acc.checkLogin(username, credText.getText().toString(), new RestCallback() {
+		if(username.length() < 1){
+			util.alert("Please type in a username!", this);
+		}
 
-			@Override
-			public void onTaskComplete(Object result) {
+		else if(cred.length() < 1){
+			
+			util.alert("Please type in a password!", this);
+		} else{
 
-				HashMap<String, Object> a = g.fromJson((String)result, HashMap.class );
+			acc.checkLogin(username, cred , new RestCallback() {
+
+				@Override
+				public void onTaskComplete(Object result) {
+
+					HashMap<String, Object> a = g.fromJson((String)result, HashMap.class );  // returns hashmap representation of JSON
 
 
-				if(((Double) a.get("success")).intValue() != 1 )
-				{
-					util.alert("Incorrect Username or Password", UserLoginMain.this);	
-				}
-				else
-				{
-					setUserId(Integer.parseInt((String)a.get("userId")));
+					if(((Double) a.get("success")).intValue() != 1 ) // not successful
+					{
+						util.alert("Incorrect Username or Password", UserLoginMain.this);	
+					}
+					else // successful
+					{
+						setUserId(Integer.parseInt((String)a.get("userId")));
 
-					loginGo();
-				}
+						loginGo();
+					}
 
-			}}
-				);
+				}});
+		}
 
 	}
 
@@ -140,16 +150,16 @@ public class UserLoginMain extends Activity {
 
 
 
-	public void loginGo(){
+	public void loginGo(){    // grabs user profile and inserts critical data into shared preference
 		acc.getUserProfile(userId, new RestCallback(){
 
 			@Override
 			public void onTaskComplete(Object result) {
 				Info myInfo = g.fromJson((String)result, Info.class);
-				
+
 				String formattedName = util.nameCase(myInfo.getFirstName(), myInfo.getLastName());
-				
-				
+
+
 				SharedPreferences.Editor editor = myPref.edit();
 
 				editor.putString("infoJson", (String)result);

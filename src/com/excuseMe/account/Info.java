@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 import com.excuseMe.dbAccess.AccountAccessDB;
 
-
+// class for server script to pass information in via JSON with help of GSON classes
 
 @SuppressWarnings("serial")
 public class Info implements Serializable {
