@@ -10,7 +10,7 @@ import com.ppierson.webservicetasks.RestCallback;
 import com.ppierson.webservicetasks.utils.Constants;
 import com.excuseMe.account.Info;
 import com.excuseMe.*;
-public class accountAccess {
+public class AccountAccessDB {
 
 	Gson gson; 
 	Info info;
@@ -18,10 +18,57 @@ public class accountAccess {
 	Utilities util = new Utilities();
 
 
-	public accountAccess(){
+	public AccountAccessDB(){
 		gson = new Gson();
 		info = new Info();
 
+
+	}
+	
+	
+	public void updatePassword(String username, String password, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/resetPassword.php?username=" +
+				username + "&password=" + MD5(password) ;
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	public void checkRecoveryQuestion(String username, String answer, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/checkRecovery.php?username=" +
+				username + "&getQuestion=0" + "&answer=" +  MD5(answer);
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	
+	public void getRecoveryQuestion(String username, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/checkRecovery.php?username=" +
+				username + "&getQuestion=1";
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
+
+	}
+	
+	
+	public void updateRecovery(String username, String recoveryQ, String recoveryA, RestCallback callback){
+		String getURL = "http://www.rantpit.com/excuseApp/setRecovery.php?username=" +
+				username + "&recovQ=" + recoveryQ + "&recovA=" + MD5(recoveryA);
+		Log.d("", "Executing UrlAction : " + getURL);
+
+		GetWebserviceTask standardGetWebTask = new GetWebserviceTask(callback);
+
+		standardGetWebTask.execute(getURL);
 
 	}
 	

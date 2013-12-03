@@ -1,17 +1,39 @@
 package com.excuseMe;
 
+import com.excuseMe.dbAccess.AccountAccessDB;
+import com.ppierson.webservicetasks.RestCallback;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class Utilities {
+	int userId;
+	AccountAccessDB a;
+	SharedPreferences pref;
 	
 	public Utilities(){
 		
 	}
 	
-	
+	public void setGlobalId(String username, SharedPreferences pref){
+		setPref(pref);
+		a = new AccountAccessDB();
+		
+		a.getUserId(username, new RestCallback(){
+			@Override
+			public void onTaskComplete(Object result) {
+				setUserId(Integer.parseInt((String)result));
+				SharedPreferences.Editor editor = getPref().edit();
+				editor.putInt("userId", Integer.parseInt((String)result));
+				editor.commit();
+								
+				Log.d("User Id: ","User Id: " + userId);
+			}	
+		});
+	}
 	
 	public String nameCase(String first, String last){
 		
@@ -49,6 +71,22 @@ public class Utilities {
 		alert.setPositiveButton("Ok", null);
 		alert.setCancelable(true);
 		alert.create().show();
+	}
+
+	private SharedPreferences getPref() {
+		return pref;
+	}
+
+	private void setPref(SharedPreferences pref) {
+		this.pref = pref;
+	}
+
+	private int getUserId() {
+		return userId;
+	}
+
+	private void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 

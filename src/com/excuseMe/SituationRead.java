@@ -2,7 +2,7 @@ package com.excuseMe;
 
 import java.util.ArrayList;
 
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -17,13 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class GetSituation extends Activity implements OnItemSelectedListener {
+public class SituationRead extends Activity implements OnItemSelectedListener {
 	
 	int userId, situationId, timeId,timeOfDayId;
 	Utilities util = new Utilities();
 	ArrayList<String> s;
 	
-	accountAccess acc;
+	AccountAccessDB acc;
 	Gson gson;
 	SharedPreferences pref;
 	Spinner sit;
@@ -32,10 +32,10 @@ public class GetSituation extends Activity implements OnItemSelectedListener {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.get_excuse_situation);
+		setContentView(R.layout.excuse_situation_read);
 		
 		gson = new Gson();
-		acc = new accountAccess();
+		acc = new AccountAccessDB();
 		pref = getSharedPreferences("ExcuseApp",0);
 		
 		userId = pref.getInt("userId", -1);
@@ -110,7 +110,7 @@ public class GetSituation extends Activity implements OnItemSelectedListener {
 			@Override
 			public void onClick(View v) {
 //				til.alertNI(getSituation.this);
-				Intent myIntent = new Intent(GetSituation.this, ExcuseOutput.class);
+				Intent myIntent = new Intent(SituationRead.this, ExcuseOutput.class);
 				myIntent.putExtra("situationId", situationId);
 				myIntent.putExtra("timeId", timeId);
 				myIntent.putExtra("timeOfDayId", timeOfDayId);
@@ -133,7 +133,7 @@ public class GetSituation extends Activity implements OnItemSelectedListener {
 				s = gson.fromJson((String)result, ArrayList.class);
 				
 				sit = (Spinner)findViewById(R.id.situationSpinner);
-				sitAdapter = new ArrayAdapter<String>(GetSituation.this,android.R.layout.simple_spinner_item, s);
+				sitAdapter = new ArrayAdapter<String>(SituationRead.this,android.R.layout.simple_spinner_item, s);
 				sitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				sit.setAdapter(sitAdapter);
 				

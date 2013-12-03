@@ -1,7 +1,7 @@
 package com.excuseMe;
 
 import com.excuseMe.account.Info;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class ProfileGet extends Activity {
 
 	Gson g;
-	accountAccess acc;
+	AccountAccessDB acc;
 	Utilities u;
 	
 	int userId;
@@ -30,12 +30,12 @@ public class ProfileGet extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profile_get);
+		setContentView(R.layout.profile_read);
 		
 		myPref = getSharedPreferences("ExcuseApp",0);
 		
 		g = new Gson();
-		acc = new accountAccess();
+		acc = new AccountAccessDB();
 		u = new Utilities();
 
 		name = (TextView)findViewById(R.id.nameView);

@@ -3,7 +3,7 @@ package com.excuseMe;
 import java.util.ArrayList;
 
 import com.excuseMe.account.Info;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -21,7 +21,7 @@ public class UserPanel extends Activity{
 
 	Utilities util = new Utilities();
 	int userId;
-	accountAccess acc = new accountAccess();
+	AccountAccessDB acc = new AccountAccessDB();
 	Gson g = new Gson();
 
 	ArrayList<String> situationsArray;
@@ -57,7 +57,7 @@ public class UserPanel extends Activity{
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(UserPanel.this, GetSituation.class);
+				Intent myIntent = new Intent(UserPanel.this, SituationRead.class);
 				startActivity(myIntent);
 
 			}
@@ -87,7 +87,7 @@ public class UserPanel extends Activity{
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(UserPanel.this, SubmitExcuse.class);
+				Intent myIntent = new Intent(UserPanel.this, ExcuseCreate.class);
 				startActivity(myIntent);
 
 
@@ -102,7 +102,7 @@ public class UserPanel extends Activity{
 			public void onClick(View v) {
 
 				util.logout(myPref);
-				Intent myIntent = new Intent(UserPanel.this, UserLogin.class);
+				Intent myIntent = new Intent(UserPanel.this, UserLoginMain.class);
 				startActivity(myIntent);
 				
 

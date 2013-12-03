@@ -13,24 +13,46 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/firstNameGet"
+        android:id="@+id/recoveryQuestionTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText1"
         android:layout_alignParentLeft="true"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginBottom="36dp"
-        android:text="Please type in your email Address. Your Password will be sent to your email!"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/promptView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Type in your username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <EditText
-        android:id="@+id/emailReg"
+        android:id="@+id/editTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/sendEmailButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="38dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress" 
+		
+        />
 
     <TextView
         android:id="@+id/textView2"
@@ -40,10 +62,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/sendEmailButton"
+        android:id="@+id/getQuestionButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retrieve Password" />
+        android:text="Retrieve Question" />
+    
+    <Button
+        android:id="@+id/recoverButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next" />
 
 </TableLayout>

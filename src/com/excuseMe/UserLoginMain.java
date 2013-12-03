@@ -9,8 +9,7 @@ import android.os.Bundle;
 
 import com.excuseMe.R;
 import com.excuseMe.account.Info;
-import com.excuseMe.account.User;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -26,32 +25,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class UserLogin extends Activity {
+public class UserLoginMain extends Activity {
 
 
 	Utilities util = new Utilities();
-	accountAccess acc = new accountAccess();
+	AccountAccessDB acc = new AccountAccessDB();
 	Gson g = new Gson();
 	SharedPreferences myPref;
 	String username;
 	int userId;
 
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		setContentView(R.layout.user_login_main);
+		
 		myPref = getSharedPreferences("ExcuseApp", Context.MODE_PRIVATE);
 
 		if(myPref.getBoolean("loggedIn", false) == true){
 			Intent i = new Intent(this, UserPanel.class);
 			startActivity(i);
 		}
-
-
-
-		setContentView(R.layout.activity_main);
+		
+		Intent oldIntent = getIntent();
+		String msg = oldIntent.getStringExtra("msg");
+		
+		if(msg != null){
+			util.alert(msg, this);
+		}
 
 		Button loginButton = (Button)findViewById(R.id.loginButton); 
 		Button createNewButton = (Button)findViewById(R.id.createNewButton);
@@ -73,7 +74,7 @@ public class UserLogin extends Activity {
 			@Override
 			public void onClick(View v) {
 				// create Action
-				Intent myIntent = new Intent(UserLogin.this, Register.class);
+				Intent myIntent = new Intent(UserLoginMain.this, Register.class);
 				startActivity(myIntent);
 			}
 		});
@@ -84,8 +85,8 @@ public class UserLogin extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Forgot Action
-				util.alertNI(UserLogin.this);
+				Intent myIntent = new Intent(UserLoginMain.this, RecoveryRead.class);
+				startActivity(myIntent);
 
 
 			}
@@ -113,7 +114,7 @@ public class UserLogin extends Activity {
 
 				if(((Double) a.get("success")).intValue() != 1 )
 				{
-					util.alert("Incorrect Username or Password", UserLogin.this);	
+					util.alert("Incorrect Username or Password", UserLoginMain.this);	
 				}
 				else
 				{
@@ -158,7 +159,7 @@ public class UserLogin extends Activity {
 				editor.putString("name", formattedName);
 				editor.commit();
 
-				Intent myIntent = new Intent(UserLogin.this, UserPanel.class);
+				Intent myIntent = new Intent(UserLoginMain.this, UserPanel.class);
 				startActivity(myIntent);
 
 

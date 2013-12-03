@@ -5,7 +5,7 @@ import java.io.Serializable;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 
 
 

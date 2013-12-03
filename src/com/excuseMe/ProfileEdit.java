@@ -1,7 +1,7 @@
 package com.excuseMe;
 
 import com.excuseMe.account.Info;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -34,7 +34,7 @@ public class ProfileEdit extends Activity {
 	
 	Info myInfo;
 	
-	accountAccess a;
+	AccountAccessDB a;
 	Gson g;
 	SharedPreferences myPref;
 	
@@ -45,9 +45,9 @@ public class ProfileEdit extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profile_edit);
+		setContentView(R.layout.profile_update);
 		
-		 a = new accountAccess();
+		 a = new AccountAccessDB();
 		 g = new Gson();
 		 myPref = getSharedPreferences("ExcuseApp",0);
 		 userId = myPref.getInt("userId", -1);
@@ -56,7 +56,7 @@ public class ProfileEdit extends Activity {
 		 
 		 
 		 if(userId == -1){
-			 Intent i = new Intent(ProfileEdit.this, UserLogin.class);
+			 Intent i = new Intent(ProfileEdit.this, UserLoginMain.class);
 			 startActivity(i);
 		 }
 		 
@@ -701,13 +701,13 @@ public class ProfileEdit extends Activity {
 
 
 
-	private accountAccess getA() {
+	private AccountAccessDB getA() {
 		return a;
 	}
 
 
 
-	private void setA(accountAccess a) {
+	private void setA(AccountAccessDB a) {
 		this.a = a;
 	}
 

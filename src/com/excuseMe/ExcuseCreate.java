@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.excuseMe.account.Info;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SubmitExcuse extends Activity {
+public class ExcuseCreate extends Activity {
 
 	Button submitBtn;
 	TextView excuseTxtView, excuseDescView;
@@ -25,7 +25,7 @@ public class SubmitExcuse extends Activity {
 	String excuseTxt, excuseDesc;
 
 	SharedPreferences pref;
-	accountAccess a;
+	AccountAccessDB a;
 	Utilities util;
 
 	int userId;
@@ -33,10 +33,10 @@ public class SubmitExcuse extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.submit_excuse);
+		setContentView(R.layout.excuse_submit);
 
 		util = new Utilities();
-		a = new accountAccess();
+		a = new AccountAccessDB();
 		pref = getSharedPreferences("ExcuseApp",0);
 
 		userId = pref.getInt("userId", -1);
@@ -54,9 +54,9 @@ public class SubmitExcuse extends Activity {
 				excuseDesc = excuseDescView.getText().toString();
 
 				if(excuseTxt.length() < 10){
-					util.alert("Your excuse is too short!", SubmitExcuse.this);
+					util.alert("Your excuse is too short!", ExcuseCreate.this);
 				}else if(excuseDesc.length() < 4){
-					util.alert("Your description is too short!", SubmitExcuse.this);
+					util.alert("Your description is too short!", ExcuseCreate.this);
 				}else{
 					realSubmitExcuse();
 				}
@@ -76,7 +76,7 @@ public class SubmitExcuse extends Activity {
 				new RestCallback(){
 			@Override
 			public void onTaskComplete(Object result) {
-				Intent myIntent = new Intent(SubmitExcuse.this, RecordUpdated.class);
+				Intent myIntent = new Intent(ExcuseCreate.this, RecordUpdated.class);
 				myIntent.putExtra("message", "Excuse Submitted");
 				startActivity(myIntent);
 			}

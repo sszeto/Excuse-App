@@ -66,14 +66,6 @@
         android:text="Create New Account" />
 
     <Button
-        android:id="@+id/forgotButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/createNewButton"
-        android:layout_below="@+id/createNewButton"
-        android:text="Forgotten password?" />
-
-    <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,5 +73,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
         android:text="Login" />
+
+    <Button
+        android:id="@+id/forgotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createNewButton"
+        android:layout_centerHorizontal="true"
+        android:text="Reset password" />
 
 </RelativeLayout>

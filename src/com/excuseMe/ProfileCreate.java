@@ -1,6 +1,6 @@
 package com.excuseMe;
 
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.ppierson.webservicetasks.RestCallback;
 
 import android.app.Activity;
@@ -30,7 +30,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 	int sexId, ageId, relationshipId, personalityId, ethnicityId, locationId, incomeId
 	,brotherId, sisterId, parentId;
 
-	accountAccess a;
+	AccountAccessDB a;
 	
 	SharedPreferences myPref;
 
@@ -39,12 +39,11 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_create);
 
-		 a = new accountAccess();
+		 a = new AccountAccessDB();
 		 myPref = getSharedPreferences("ExcuseApp",0);
 		
 		setUsername(myPref.getString("username", ""));
-		prepareId();
-
+		setUserId(myPref.getInt("userId", -1));
 
 		Button createBtn = (Button)findViewById(R.id.createBtn);
 
@@ -353,34 +352,6 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 
 
 	}
-
-
-
-	public void prepareId(){
-
-
-		a.getUserId( getUsername(), new RestCallback(){
-
-			@Override
-			public void onTaskComplete(Object result) {
-
-				setUserId(Integer.parseInt((String)result));
-				
-				SharedPreferences.Editor editor = myPref.edit();
-				editor.putInt("userId", Integer.parseInt((String)result));
-				editor.commit();
-				
-				
-				Log.d("User Id: ","User Id: " + userId);
-			}	
-
-
-		});
-
-
-
-	}
-
 
 
 	@Override

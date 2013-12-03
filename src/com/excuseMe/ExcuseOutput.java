@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.excuseMe.account.Info;
-import com.excuseMe.dbAccess.accountAccess;
+import com.excuseMe.dbAccess.AccountAccessDB;
 import com.google.gson.Gson;
 import com.ppierson.webservicetasks.RestCallback;
 
@@ -37,7 +37,7 @@ public class ExcuseOutput extends Activity {
 	Button nextBtn, yesBtn, noBtn;
 	
 	SharedPreferences pref;
-	accountAccess a;
+	AccountAccessDB a;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class ExcuseOutput extends Activity {
 		util = new Utilities();
 		gson = new Gson();
 		info = new Info();
-		a = new accountAccess();
+		a = new AccountAccessDB();
 		pref = getSharedPreferences("ExcuseApp",0);
 		
 		
@@ -194,7 +194,7 @@ public class ExcuseOutput extends Activity {
 		yesBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent myIntent = new Intent(ExcuseOutput.this, GetSituation.class);
+				Intent myIntent = new Intent(ExcuseOutput.this, SituationRead.class);
 				startActivity(myIntent);
 
 			}
@@ -214,7 +214,7 @@ public class ExcuseOutput extends Activity {
 			@Override
 			public void onClick(View v) {
 				util.logout(pref);
-				Intent myIntent = new Intent(ExcuseOutput.this, UserLogin.class);
+				Intent myIntent = new Intent(ExcuseOutput.this, UserLoginMain.class);
 				startActivity(myIntent);
 
 			}

@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 public class Register extends Activity {
 	
 	
-	accountAccess a = new accountAccess();
+	AccountAccessDB a = new AccountAccessDB();
 	Utilities util = new Utilities();
 	Gson g = new Gson();
 	
@@ -35,7 +35,7 @@ public class Register extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.register);
+		setContentView(R.layout.user_create);
 		
 		myPref = getSharedPreferences("ExcuseApp",0);
 		
@@ -78,14 +78,17 @@ public class Register extends Activity {
 						}else{
 							
 							String name = firstReg.getText().toString()+ " "+lastReg.getText().toString();
+							String username = a.get("username").toString().toLowerCase();
+							
+							util.setGlobalId(username, myPref);
 							
 							SharedPreferences.Editor editor = myPref.edit();
-							editor.putString("username", a.get("username").toString());
+							editor.putString("username", username);
 							editor.putString("name", name);
 							editor.putBoolean("loggedIn", true);
 							editor.commit();
 							
-							Intent i= new Intent(Register.this, ProfileCreate.class);							
+							Intent i= new Intent(Register.this, RecoveryUpdate.class);							
 							startActivity(i);
 						}
 						

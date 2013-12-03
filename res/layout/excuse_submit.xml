@@ -16,6 +16,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Type your excuse below:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -51,6 +53,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Explain where someone might use this below:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

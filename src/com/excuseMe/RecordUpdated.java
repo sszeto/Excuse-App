@@ -12,7 +12,7 @@ public class RecordUpdated extends Activity{
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.record_updated);
+		setContentView(R.layout.record_updated_generic);
 
 		SharedPreferences pref = getSharedPreferences("ExcuseApp",0);
 		Intent oldIntent = getIntent();

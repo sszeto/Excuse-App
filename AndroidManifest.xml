@@ -18,7 +18,7 @@
         android:label="@string/appName"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.excuseMe.UserLogin"
+            android:name="com.excuseMe.UserLoginMain"
             android:label="@string/appName" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +53,7 @@
         
         
          <activity
-            android:name=".GetSituation"
+            android:name=".SituationRead"
         >
             
         </activity>
@@ -77,7 +77,26 @@
         </activity>
         
         <activity
-            android:name=".SubmitExcuse"
+            android:name=".ExcuseCreate"
+        >
+            
+        </activity> 
+        
+         <activity
+            android:name=".RecoveryUpdate"
+        >
+            
+        </activity> 
+         
+        
+         <activity
+            android:name=".RecoveryRead"
+        >
+            
+        </activity> 
+        
+         <activity
+            android:name=".PasswordUpdate"
         >
             
         </activity> 
