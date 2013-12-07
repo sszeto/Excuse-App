@@ -17,16 +17,17 @@ public class PasswordUpdate extends Activity {
 	
 	SharedPreferences pref;
 	
-	EditText passTxt, passConfirmTxt;
-	TextView msg1, msg2, finishTxt;
-	Button resetBtn, resetRecovQuestions;
+	EditText passTxt, passConfirmTxt; // field to input password and confirmation password
+	TextView msg1, msg2, finishTxt; // message to display for the user
+	Button resetBtn, resetRecovQuestions; // button to reset password and recovery questions 
 	
-	String username;
-	String pass, passConfirm;
+	String username;   // username inputed by user 
+	String pass, passConfirm; // password and confirmation password entered by the user 
 	
 	AccountAccessDB a;
 	Utilities u;
 	
+	// Activities to do on start of activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,28 +35,28 @@ public class PasswordUpdate extends Activity {
 		
 		a = new AccountAccessDB();
 		u= new Utilities();
-		pref = getSharedPreferences("ExcuseApp",0);
+		pref = getSharedPreferences("ExcuseApp",0); // set gobal shared preferences 
 		
 		username = pref.getString("username", ""); //get username
 		
-		if(username.equals("")){
+		if(username.equals("")){   // if username doesn't exist log user out and create an alert dialog to explain situation 
 			u.logout(pref);
 			Intent myIntent = new Intent(PasswordUpdate.this, UserLoginMain.class);
-			myIntent.putExtra("msg", "Sorry, something went wrong. Please Try Again!");
+			myIntent.putExtra("msg", "Sorry, something went wrong. Please Try Again!"); // message to pass to the user login screen 
 			startActivity(myIntent);
 		}
 		
 		
-		finishTxt = (TextView)findViewById(R.id.finishedTxt);
-		finishTxt.setVisibility(View.INVISIBLE);
+		finishTxt = (TextView)findViewById(R.id.finishedTxt); //text to be displayed when action is complete 
+		finishTxt.setVisibility(View.INVISIBLE); // sets this text invisible to start 
 		
-		msg1 = (TextView)findViewById(R.id.msg1);
-		msg2 = (TextView)findViewById(R.id.msg2);
+		msg1 = (TextView)findViewById(R.id.msg1); // sets message displayed to the user
+		msg2 = (TextView)findViewById(R.id.msg2); // sets second line of message to be displayed to the usre 
 				
-		passTxt = (EditText)findViewById(R.id.passwordNewTxt);
-		passConfirmTxt= (EditText)findViewById(R.id.passwordNewConfirmTxt);
+		passTxt = (EditText)findViewById(R.id.passwordNewTxt); // textfield for user to enter password
+		passConfirmTxt= (EditText)findViewById(R.id.passwordNewConfirmTxt); // textfield for user to enter confirmation password 
 		
-		resetBtn = (Button)findViewById(R.id.resetPassBtn);
+		resetBtn = (Button)findViewById(R.id.resetPassBtn);  
 		resetRecovQuestions = (Button)findViewById(R.id.resetRecovBtn);
 		
 		resetRecovQuestions.setVisibility(View.INVISIBLE);   //button used for end action
@@ -66,7 +67,7 @@ public class PasswordUpdate extends Activity {
 
 			@Override
 			public void onClick(View w) {
-				resetPssword();
+				resetPssword();    
 			}
 		});
 		
@@ -97,16 +98,23 @@ public class PasswordUpdate extends Activity {
 						@Override
 						public void onTaskComplete(Object result) {    //performing end actions
 							
-							passTxt.setVisibility(View.INVISIBLE);
-							passConfirmTxt.setVisibility(View.INVISIBLE);
+							// sets user input field invisilble
+							passTxt.setVisibility(View.INVISIBLE);    
+							passConfirmTxt.setVisibility(View.INVISIBLE); 
 							
+							
+							//sets initial message to user invisible 
 							msg1.setVisibility(View.INVISIBLE);
 							msg2.setVisibility(View.INVISIBLE);
 							
+							
+							//sets end message to user visible 
 							finishTxt.setVisibility(View.VISIBLE);
 							
+							//sets reset button to 'finish action'
 							resetBtn.setText("Finish");
 
+							// makes button for 'recover questions' available 
 							resetRecovQuestions.setVisibility(View.VISIBLE);
 							
 							
@@ -114,7 +122,7 @@ public class PasswordUpdate extends Activity {
 
 								@Override
 								public void onClick(View w) {
-									u.logout(pref);
+									u.logout(pref); // logs user out 
 									
 									Intent i = new Intent(PasswordUpdate.this, UserLoginMain.class);
 									startActivity(i);

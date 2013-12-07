@@ -20,45 +20,48 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class ProfileEdit extends Activity {
 
 
-	int userId;
+	int userId;  
 
 	String username, name;
 
-	TextView nameView;
+	TextView nameView; // view for name to be displayed 
 
+	// spinners for each user profile category
 	Spinner editSexSpin, editAgeSpin, editRelationshipSpin, editPersonalitySpin, editEthnicitySpin, editLocationSpin, 
 	editIncomeSpin, editBrotherSpin, editSisterSpin, editParentSpin;
 
+	//Ids to be used for database correspondance 
 	int sexId, ageId, relationshipId, personalityId, ethnicityId, locationId, incomeId
 	,brotherId, sisterId, parentId;
 
+	// Info passed from server
 	Info myInfo;
 
 	AccountAccessDB a;
 	Gson g;
 	SharedPreferences myPref;
 
-	Button editBtn;
+	Button editBtn;  //edit profile button 
 	Utilities u;
 
 
-
+	// Activities to do on start of activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profile_update);
+		setContentView(R.layout.profile_update);   //sets layout to profile_update 
 
 		a = new AccountAccessDB();
 		g = new Gson();
 		u = new Utilities();
 		
-		myPref = getSharedPreferences("ExcuseApp",0);
-		userId = myPref.getInt("userId", -1);
-		username = myPref.getString("username", "");
-		name = myPref.getString("name", "");
+		myPref = getSharedPreferences("ExcuseApp",0);  //sets global shared preferences 
+		userId = myPref.getInt("userId", -1); //sets userId from preference 
+		username = myPref.getString("username", ""); //sets username from preference 
+		name = myPref.getString("name", ""); //sets name from preference 
 
 
-		if(userId == -1){
+		if(userId == -1){  // if invalid userId is not passed, log user out and send message for login screen to display
 			u.logout(myPref);
 			Intent myIntent = new Intent(ProfileEdit.this, UserLoginMain.class);
 			myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
@@ -68,6 +71,7 @@ public class ProfileEdit extends Activity {
 		nameView = (TextView)findViewById(R.id.editNameView);
 		editBtn = (Button)findViewById(R.id.editBtn);
 
+		
 		editSexSpin= (Spinner) findViewById(R.id.editSexSpinner);
 		editAgeSpin= (Spinner) findViewById(R.id.editAgeSpinner);
 		editRelationshipSpin= (Spinner) findViewById(R.id.editRelationshipSpinner);
@@ -79,7 +83,7 @@ public class ProfileEdit extends Activity {
 		editSisterSpin= (Spinner) findViewById(R.id.editSisterSpinner);
 		editParentSpin= (Spinner) findViewById(R.id.editParentSpinner);
 
-
+		//sets correct corresponding arrays for all spinners to use 
 		ArrayAdapter<CharSequence> sexAdapter = ArrayAdapter.createFromResource(this,
 				R.array.sex_array, android.R.layout.simple_spinner_item);
 
@@ -111,6 +115,7 @@ public class ProfileEdit extends Activity {
 				R.array.family_array, android.R.layout.simple_spinner_item);
 
 
+		//sets all spinner to a simple spinner dropdown
 		sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		relationshipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -122,7 +127,7 @@ public class ProfileEdit extends Activity {
 		sisterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		parentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-
+		// sets all adapters 
 		editSexSpin.setAdapter(sexAdapter);
 		editAgeSpin.setAdapter(ageAdapter);
 		editRelationshipSpin.setAdapter(relationshipAdapter);
@@ -136,9 +141,9 @@ public class ProfileEdit extends Activity {
 
 		setUserDetails();  //set all spinners to correct items
 
-
-		editSexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { //Id in DB = pos + 1 for all spinners
-
+		
+		//Id in DB = pos + 1 for all spinners
+		editSexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() { 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, 
 					int pos, long id) {
@@ -347,7 +352,7 @@ public class ProfileEdit extends Activity {
 
 
 
-	public void realUpdateProfile(){  //update profile
+	public void realUpdateProfile(){  //update profile by calling updateUserInfo from accountAccess class 
 		a.updateUserInfo(userId, ageId, sexId, incomeId, locationId, relationshipId, ethnicityId, personalityId, parentId, brotherId, sisterId,
 
 				new RestCallback(){
@@ -365,12 +370,13 @@ public class ProfileEdit extends Activity {
 
 
 
-
+	//sets all user details on spinners by using ID's provided from getUserProfile JSON passed from server 
 	public void setUserDetails(){    //sets all spinners 
 		a.getUserProfile(userId, new RestCallback(){
 			@Override
 			public void onTaskComplete(Object result) {
-
+				
+				// sets info class with GSON
 				setMyInfo(g.fromJson((String)result, Info.class));
 
 				setSexId(myInfo.getGenderId());
@@ -386,6 +392,7 @@ public class ProfileEdit extends Activity {
 
 				nameView.setText(name);
 
+				//sets selection of spinners 
 				editSexSpin.setSelection(sexId - 1);
 				editAgeSpin.setSelection(ageId - 1);
 				editRelationshipSpin.setSelection(relationshipId - 1);

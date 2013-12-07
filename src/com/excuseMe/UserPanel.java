@@ -24,14 +24,12 @@ public class UserPanel extends Activity{
 	AccountAccessDB acc = new AccountAccessDB();
 	Gson g = new Gson();
 
-	ArrayList<String> situationsArray;
-
 	SharedPreferences myPref;
-	String infoJson, username, temp, name;
-	Boolean loggedIn;
+	String infoJson, username, name;  //string for profileInformation, username, and name 
+	Boolean loggedIn;  // is the user logged in?
 
 
-
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_panel);
@@ -43,6 +41,7 @@ public class UserPanel extends Activity{
 		
 		TextView welcomeMsg = (TextView)findViewById(R.id.welcomePanelView);
 
+		//sets all critical user info from shared preference 
 		myPref = getSharedPreferences("ExcuseApp",0);
 		name = myPref.getString("name", null);
 		username = myPref.getString("username", null);
@@ -52,6 +51,7 @@ public class UserPanel extends Activity{
 		
 		welcomeMsg.setText("Welcome " + name + "!");
 		
+		// if invalid userId or empty username is present, log user out and pass error message 
 		if(userId == -1 && username == null){
 			util.logout(myPref);
 			Intent myIntent = new Intent(UserPanel.this, UserLoginMain.class);
@@ -76,11 +76,14 @@ public class UserPanel extends Activity{
 			public void onClick(View v) {
 
 				Intent myIntent;
-
+				
+				// if invalid userId is passed, log user out 
 				if(userId == -1){
 					util.logout(myPref);
 					myIntent = new Intent(UserPanel.this, UserLoginMain.class);
 					myIntent.putExtra("msg", "Sorry, something went wrong. Please Login Again!");
+					
+				//valid userId is in shared preferences
 				}else{
 					myIntent = new Intent(UserPanel.this, ProfileGet.class);
 				}
@@ -91,6 +94,7 @@ public class UserPanel extends Activity{
 			}
 		});
 
+		// goes to submitExcuse activity
 		submitExcuseBtn.setOnClickListener(new View.OnClickListener() { // user submits an excuse
 
 			@Override
@@ -120,19 +124,6 @@ public class UserPanel extends Activity{
 
 
 	}	
-
-
-
-	public ArrayList<String> getSituationsArray() {
-		return situationsArray;
-	}
-
-
-
-
-	public void setSituationsArray(ArrayList<String> situationsArray) {
-		this.situationsArray = situationsArray;
-	}
 
 
 

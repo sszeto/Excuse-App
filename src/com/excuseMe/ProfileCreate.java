@@ -18,37 +18,39 @@ import android.widget.TextView;
 
 public class ProfileCreate extends Activity implements OnItemSelectedListener {
 
-	int userId;
+	int userId; // user id 
 
-	String username, name;
+	String username, name; 
 	
-	TextView nameView;
+	TextView nameView; // field to be populated by name
 
+	// all spinners to be used 
 	Spinner sexSpin, ageSpin, relationshipSpin, personalitySpin, ethnicitySpin, locationSpin, incomeSpin
 	,brotherSpin, sisterSpin, parentSpin;
 
+	//all ids to corresppond for database use
 	int sexId, ageId, relationshipId, personalityId, ethnicityId, locationId, incomeId
 	,brotherId, sisterId, parentId;
-
+	
 	AccountAccessDB a;
 	
 	SharedPreferences myPref;
 
-
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_create);
 
 		 a = new AccountAccessDB();
-		 myPref = getSharedPreferences("ExcuseApp",0);
+		 myPref = getSharedPreferences("ExcuseApp",0); // set global shared preferences 
 		
-		setUsername(myPref.getString("username", ""));
-		setUserId(myPref.getInt("userId", -1));
+		setUsername(myPref.getString("username", "")); // sets username from preferences 
+		setUserId(myPref.getInt("userId", -1)); //sets userId from preferences 
 
 		Button createBtn = (Button)findViewById(R.id.createBtn);
 
 		nameView = (TextView)findViewById(R.id.nameView);
-		nameView.setText(myPref.getString("name", ""));
+		nameView.setText(myPref.getString("name", ""));    // grabs user name from preferences and displays in textview 
 		
 		sexSpin= (Spinner) findViewById(R.id.sexSpinner);
 		ageSpin= (Spinner) findViewById(R.id.ageSpinner);
@@ -62,7 +64,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		parentSpin= (Spinner) findViewById(R.id.parentSpinner);
 
 		
-
+		//sets all spinners to correct arrays in strings.xml 
 		ArrayAdapter<CharSequence> sexAdapter = ArrayAdapter.createFromResource(this,
 				R.array.sex_array, android.R.layout.simple_spinner_item);
 
@@ -94,7 +96,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 				R.array.family_array, android.R.layout.simple_spinner_item);
 
 
-
+		//sets all spinners to a simple spinner dropdown
 		sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		relationshipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -107,7 +109,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		parentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-
+		//sets all adapters 
 		sexSpin.setAdapter(sexAdapter);
 		ageSpin.setAdapter(ageAdapter);
 		relationshipSpin.setAdapter(relationshipAdapter);
@@ -120,7 +122,8 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 		parentSpin.setAdapter(parentAdapter);
 
 
-		sexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() {     // ID in DB = pos + 1 for all spinners
+		// ID in DB = pos + 1 for all spinners
+		sexSpin.setOnItemSelectedListener(new  OnItemSelectedListener() {    
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, 
@@ -334,7 +337,7 @@ public class ProfileCreate extends Activity implements OnItemSelectedListener {
 	}
 	
 	
-
+	// create profile info ... calls createUserInfo() from accountAccess 
 	public void realCreateProfile(){
 		a.createUserInfo(userId, ageId, sexId, incomeId, locationId, relationshipId, ethnicityId, personalityId, parentId, brotherId, sisterId, 
 				new RestCallback(){

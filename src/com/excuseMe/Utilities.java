@@ -18,7 +18,7 @@ public class Utilities {
 		
 	}
 	
-	
+	//Grabs Id from database and stores in shared preferences 
 	public void setGlobalId(String username, SharedPreferences pref){    //sets ID in shared preference
 		setPref(pref);
 		a = new AccountAccessDB();

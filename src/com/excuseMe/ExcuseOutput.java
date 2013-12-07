@@ -22,26 +22,27 @@ public class ExcuseOutput extends Activity {
 
 	
 	
-	int userId, situationId, timeId, timeOfDayId;
+	int userId, situationId, timeId, timeOfDayId;     // id's for database use
 	Utilities util;
 	Gson gson;
 	Info info; 
 	
-	int currentId;
-	Set idSet;
-	Iterator idIterator;
+	int currentId;  // current ID of excuse being displayed
+	Set idSet;  //set of Id Keys from excuse array
+	Iterator idIterator; //used to iterated through id's
 
-	HashMap excuseList;
-	TextView excuseTxt, questionTxt, lineTwo;
+	HashMap excuseList; //hashmap of all excuse returned by server
+	TextView excuseTxt, questionTxt, lineTwo; //Text of excuse and other lines used for displaying mesages
 	
-	Button nextBtn, yesBtn, noBtn;
+	Button nextBtn, yesBtn, noBtn; // buttons for user to choose available options
 	
 	SharedPreferences pref;
 	AccountAccessDB a;
 	
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.excuse_output);
+		setContentView(R.layout.excuse_output);  //set content view to excuse_output
 		
 		util = new Utilities();
 		gson = new Gson();
@@ -49,32 +50,33 @@ public class ExcuseOutput extends Activity {
 		a = new AccountAccessDB();
 		excuseList = new HashMap();
 		
-		pref = getSharedPreferences("ExcuseApp",0);
+		pref = getSharedPreferences("ExcuseApp",0); //get global shared preference
 		
 		
-		Intent oldIntent = getIntent();
-		situationId = oldIntent.getIntExtra("situationId", -1);
-		timeId = oldIntent.getIntExtra("timeId", -1);
-		timeOfDayId = oldIntent.getIntExtra("timeOfDayId", -1);
-		userId= pref.getInt("userId", -1);
+		Intent oldIntent = getIntent();   // get intent from previous screen 
+		situationId = oldIntent.getIntExtra("situationId", -1); // set situation Id passed
+		timeId = oldIntent.getIntExtra("timeId", -1);  //set timeId passed 
+		timeOfDayId = oldIntent.getIntExtra("timeOfDayId", -1); // set timeOfDay Id passesd 
+		userId= pref.getInt("userId", -1); // get userId from glabl shared preferences 
 		
 		
 		yesBtn = (Button)findViewById(R.id.yesBtn);
-		noBtn = (Button)findViewById(R.id.noBtn);
+		noBtn = (Button)findViewById(R.id.noBtn); 
 		nextBtn = (Button)findViewById(R.id.nextBtn);	
 		
 		excuseTxt = (TextView)findViewById(R.id.excuseTxt);
 		questionTxt = (TextView)findViewById(R.id.questionTxt);
 		lineTwo = (TextView)findViewById(R.id.endMsg);
-		lineTwo.setVisibility(View.INVISIBLE);
+		lineTwo.setVisibility(View.INVISIBLE);    // set end message of screen invisible
 		
 		
-		if(userId < 0 ){
-			util.alert("Incorrect User Id Passed!", this);
+		if(userId < 0 ){   // makes sure a valid Id is passed .. if invalid Id, log out
 			excuseTxt.setText("Incorrect User Id Passed!");
-		} else{
+			util.logout(pref);
+		} else{   // else get the first excuse
 			realGetExcuse();
 		}
+		
 		
 		
 		yesBtn.setOnClickListener(new View.OnClickListener() { //User selected excuse
@@ -185,6 +187,8 @@ public class ExcuseOutput extends Activity {
 	
 	private void setEndButtonAction(){    //"Rewire" buttons for end actions
 		
+		
+		//returns user to find a new excuse
 		yesBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -195,6 +199,7 @@ public class ExcuseOutput extends Activity {
 		});
 		
 		
+		//sets new action to return to user panel
 		nextBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -204,6 +209,8 @@ public class ExcuseOutput extends Activity {
 			}
 		});
 		
+		
+		//logs the user out
 		noBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

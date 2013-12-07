@@ -15,28 +15,27 @@ import android.widget.TextView;
 
 public class RecoveryRead extends Activity {
 
+	EditText answer; //textField for user to input answer 
+	TextView question, prompt; //messages to the user for a question and a prompt 
 
-
-	EditText answer;
-	TextView question, prompt;
-
-	String username, answerQTxt, answerATxt;
+	String username, answerQTxt, answerATxt; //username and question and answer text from the user 
 
 	SharedPreferences pref;
 	AccountAccessDB a;
 	Utilities u;
 
-	Button getQuestionBtn, recoverBtn;
+	Button getQuestionBtn, recoverBtn; // buttons to getQuestion and recovery password respectively 
 
+	// Activities to do on start of activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.recovery_read);
+		setContentView(R.layout.recovery_read);  // layout set to recover_r ead 
 
 		a= new AccountAccessDB();
 		u = new Utilities();
 
-		pref = getSharedPreferences("ExcuseApp",0);
+		pref = getSharedPreferences("ExcuseApp",0);  //sets global shared preference 
 
 		prompt = (TextView)findViewById(R.id.promptView);
 		question = (TextView)findViewById(R.id.recoveryQuestionTxtView);
@@ -47,7 +46,7 @@ public class RecoveryRead extends Activity {
 
 		recoverBtn.setVisibility(View.INVISIBLE);  // only visible after prepareQuestion() check passes
 
-
+		//user requests to get recovery question 
 		getQuestionBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -76,10 +75,12 @@ public class RecoveryRead extends Activity {
 	private void prepareQuestion(){      // Checks for valid recovery questions
 		username = answer.getText().toString();
 
+		//checks for a non empty username field 
 		if(username.length() < 1){
-			u.alert("Please type in a username", this);
+			u.alert("Please type in a username", this); // alerts the user to input a valid username
 		}else{
 
+			//if it is a non-empty username field, do getRecoveryqustion from accountAccess class
 			a.getRecoveryQuestion(username, 
 					new RestCallback(){
 
@@ -87,16 +88,17 @@ public class RecoveryRead extends Activity {
 				@Override
 				public void onTaskComplete(Object result) {
 
-					if(((String)result).equals("-1")){
+					//checks for fail/ success codes from server response
+					if(((String)result).equals("-1")){    //-1 = username not found 
 						u.alert("Username not found. Please try again", RecoveryRead.this);							
-					}else{
-						getQuestionBtn.setVisibility(View.INVISIBLE);
-						recoverBtn.setVisibility(View.VISIBLE);
+					}else{  // all othere results represent a valid question 
+						getQuestionBtn.setVisibility(View.INVISIBLE);   //"getuestion' button is set invisible 
+						recoverBtn.setVisibility(View.VISIBLE); //"recover password" button set to visible 
 
-						question.setText((String)result);
+						question.setText((String)result); // question texfield is now set to the correct question 
 
-						prompt.setText("Please enter your answer");
-						answer.setText("");
+						prompt.setText("Please enter your answer"); // user is prompted to enter a n answer
+						answer.setText("");  // answer input file is cleared 
 
 					}
 
@@ -109,26 +111,30 @@ public class RecoveryRead extends Activity {
 	private void realCheckQuestion(){    //Checks answer with db
 		answerATxt = answer.getText().toString();
 
+		//makes sure there is an answer in the user input box 
 		if(answerATxt.length() < 1){
 			u.alert("Please type in an answer!", this);
 		}else{
 
+			//calls chechRecoveryuestion from accountAccess class to check the answer 
 			a.checkRecoveryQuestion(username, answerATxt, 
 
 					new RestCallback(){
 
 				@Override
 				public void onTaskComplete(Object result) {
-					if(((String)result).equals("2")){
+					//checks response codes sent back from the sever
+					if(((String)result).equals("2")){ // -1 = incorrect answer
 						u.alert("Incorrect answer. Please try again", RecoveryRead.this);
 					}
+					//all other responses = answer is correct
 					else{
-
+						
 						SharedPreferences.Editor edit = pref.edit();
-						edit.putString("username", username);
+						edit.putString("username", username);    //sets username to global shared preferences 
 						edit.commit();
 
-
+						//goes to passwordUpdate screen
 						Intent myIntent = new Intent(RecoveryRead.this, PasswordUpdate.class);
 						startActivity(myIntent);							
 					}

@@ -19,27 +19,30 @@ import android.widget.Spinner;
 
 public class SituationRead extends Activity implements OnItemSelectedListener {
 	
-	int userId, situationId, timeId,timeOfDayId;
+	int userId, situationId, timeId,timeOfDayId;    // ID's for user selections
 	Utilities util = new Utilities();
-	ArrayList<String> s;
+	ArrayList<String> situationsArray;  //array of situations passed from database
 	
 	AccountAccessDB acc;
 	Gson gson;
 	SharedPreferences pref;
-	Spinner sit;
+	Spinner sit;  //situation spinner 
 	
-	ArrayAdapter<String> sitAdapter;
+	ArrayAdapter<String> sitAdapter; //situation adapter 
 	
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.excuse_situation_read);
+		setContentView(R.layout.excuse_situation_read);  //sets layout to excuse_situation_read
 		
 		gson = new Gson();
 		acc = new AccountAccessDB();
-		pref = getSharedPreferences("ExcuseApp",0);
+		pref = getSharedPreferences("ExcuseApp",0);  //sets global shared preferences 
 		
 		userId = pref.getInt("userId", -1);
 		
+		
+		// if invalid email, logs user out and sends user to logn page 
 		if(userId == -1){
 			util.logout(pref);
 			Intent myIntent = new Intent(SituationRead.this, UserLoginMain.class);
@@ -47,13 +50,17 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 			startActivity(myIntent);
 		}
 		
+		// sets situations returend by JSON server response
 		setSituations();
 		
 		Button nextBtn = (Button)findViewById(R.id.submitSituationBtn);
 	
+		
 		Spinner time = (Spinner)findViewById(R.id.timeSpinner);
 		Spinner timeOfDay = (Spinner)findViewById(R.id.timeOfDaySpinner);
 		
+		
+		//sets all string arrays to correct spinners from strings.xml
 		ArrayAdapter<CharSequence> timeAdapter = ArrayAdapter.createFromResource(this,
 				R.array.time_array, android.R.layout.simple_spinner_item);
 
@@ -64,6 +71,8 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 		timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		timeOfDayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
+		
+		//sets correct adapters 
 		time.setAdapter(timeAdapter);
 		timeOfDay.setAdapter(timeOfDayAdapter);
 		
@@ -136,14 +145,17 @@ public class SituationRead extends Activity implements OnItemSelectedListener {
 		acc.getSituationsDB(new RestCallback(){
 			@Override
 			public void onTaskComplete(Object result) {								
-				s = gson.fromJson((String)result, ArrayList.class);
+				// parse JSON response to an arraylist
+				situationsArray = gson.fromJson((String)result, ArrayList.class);
 				
+				
+				//sets situation spinner and options
 				sit = (Spinner)findViewById(R.id.situationSpinner);
-				sitAdapter = new ArrayAdapter<String>(SituationRead.this,android.R.layout.simple_spinner_item, s);
+				sitAdapter = new ArrayAdapter<String>(SituationRead.this,android.R.layout.simple_spinner_item, situationsArray);
 				sitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				sit.setAdapter(sitAdapter);
 				
-				
+				//sets actionListener fro situations spinner 
 				sit.setOnItemSelectedListener(new  OnItemSelectedListener(){
 
 					@Override

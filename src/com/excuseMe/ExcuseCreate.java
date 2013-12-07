@@ -19,33 +19,34 @@ import android.widget.TextView;
 
 public class ExcuseCreate extends Activity {
 
-	Button submitBtn;
-	TextView excuseTxtView, excuseDescView;
+	Button submitBtn; // Button to submit excuse
+	TextView excuseTxtView, excuseDescView; //Text fields for user to put excuses
 
-	String excuseTxt, excuseDesc;
+	String excuseTxt, excuseDesc; //Strings entered by user to submit
 
 	SharedPreferences pref;
 	AccountAccessDB a;
 	Utilities util;
 
-	int userId;
+	int userId;  // user Id
 
-
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.excuse_submit);
+		setContentView(R.layout.excuse_submit); // uses excuse_sumit layout
 
 		util = new Utilities();
 		a = new AccountAccessDB();
-		pref = getSharedPreferences("ExcuseApp",0);
+		pref = getSharedPreferences("ExcuseApp",0);  //get global shared preferences
 
-		userId = pref.getInt("userId", -1);
+		userId = pref.getInt("userId", -1); // set user Id
 
 		submitBtn = (Button)findViewById(R.id.submitExcuseBtn);
 		excuseTxtView = (TextView)findViewById(R.id.excuseSubmitTxt);
 		excuseDescView = (TextView)findViewById(R.id.excuseSubmitDesc);
 
-
+		// Checks to see if excuse lenght requirements are reached
+		//On success... call realSubmitExucse();
 		submitBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -67,7 +68,10 @@ public class ExcuseCreate extends Activity {
 
 
 	}
-
+	
+	
+	// Action for when excuse text requirements are reached
+	// calls submitExcuse function from accountAccess class
 	private void realSubmitExcuse(){
 		a.submitExcuse(userId, excuseTxt, excuseDesc, 
 				new RestCallback(){

@@ -21,16 +21,18 @@ public class ProfileGet extends Activity {
 	Utilities u;
 	
 	int userId;
-	Info myInfo;
+	Info myInfo;   //info class to store information passed form server 
+	
+	//textviews for text to be displated to user 
 	TextView name, age, gender, income, location, relationship, ethnicity, personality, family, brother, sister, updatedAt;
 	
 	SharedPreferences myPref;
 
-
+	// Activities to do on start of activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profile_read);
+		setContentView(R.layout.profile_read); // layout set to profile_read to be used 
 		
 		myPref = getSharedPreferences("ExcuseApp",0);
 		
@@ -51,7 +53,7 @@ public class ProfileGet extends Activity {
 		sister = (TextView)findViewById(R.id.sisterView);
 		updatedAt = (TextView)findViewById(R.id.updatedAtView);
 
-		
+		//if invalid userId  is passed, log user out and send message for the login screen to be displayed 
 		userId = myPref.getInt("userId", -1);
 		if(userId == -1){
 			u.logout(myPref);
@@ -63,7 +65,8 @@ public class ProfileGet extends Activity {
 		getUser();  //sets all user details
 
 		Button editButton = (Button)findViewById(R.id.editProfileButton);
-
+		
+		//Sends screen to profileEdit
 		editButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -77,6 +80,7 @@ public class ProfileGet extends Activity {
 	}
 
 
+	//gets user info from JSON passed from server using accountAccess function getUserProfile()
 	public void getUser(){
 
 
@@ -85,10 +89,10 @@ public class ProfileGet extends Activity {
 
 			@Override
 			public void onTaskComplete(Object result) {
-				
+				//uses GSON to parse JSON information passed from server into Info class	
 				setMyInfo(g.fromJson((String)result, Info.class));
 				
-				
+				//sets all text sent back from server to local variables 
 				name.setText(myPref.getString("name", ""));
 				age.setText(myInfo.getAgeTxt());
 				gender.setText(myInfo.getGenderTxt());

@@ -18,19 +18,20 @@ public class RecoveryUpdate extends Activity {
 	AccountAccessDB a;
 	Utilities u;
 
-	String recoveryQ, recoveryA;
+	String recoveryQ, recoveryA; // recovery question and answer inputed by user 
 
-	boolean fromPassScreen;
+	boolean fromPassScreen;   // where did the intent come from?
 	
 	EditText recoveryTxt, recoveryAns;
 
+	// Activities to do on start of activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recovery_create);
 
 		a = new AccountAccessDB();
 		u = new Utilities();
-		myPref = getSharedPreferences("ExcuseApp",0);
+		myPref = getSharedPreferences("ExcuseApp",0); //global shared preferences set 
 				
 		Intent oldIntent = getIntent();
 		fromPassScreen = oldIntent.getBooleanExtra("fromPass", false);   // did we come from Password Reset Screen?
@@ -46,18 +47,20 @@ public class RecoveryUpdate extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				realSetRecovery();
+				realSetRecovery();     
 			}
 		});
 
 	}
 
 
-
+	//checks fields and sets the recovery
 	private void realSetRecovery(){
-
+		
+		// sets lcoal username variable from preference 
 		String username = myPref.getString("username", "");
 		
+		//makes sure username is not empty.. if it is empty. log user out and sends user to login screen 
 		if(username.equals("")){
 			u.logout(myPref);
 			Intent myIntent = new Intent(RecoveryUpdate.this, UserLoginMain.class);
@@ -65,9 +68,12 @@ public class RecoveryUpdate extends Activity {
 			startActivity(myIntent);
 		}
 				
+		
+		//gets question and answer input from user 
 		recoveryQ = recoveryTxt.getText().toString();
 		recoveryA = recoveryAns.getText().toString();
 
+		
 		if(recoveryQ.length() < 5){  //check for lengths
 			u.alert("You forgot to enter a question!", this);
 		}else if(recoveryA.length() < 1){

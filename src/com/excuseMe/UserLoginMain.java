@@ -32,13 +32,14 @@ public class UserLoginMain extends Activity {
 	AccountAccessDB acc = new AccountAccessDB();
 	Gson g = new Gson();
 	SharedPreferences myPref;
-	String username, cred;
+	String username, cred;   //username and password passed 
 	int userId;
 
+	// Activities to do on start of activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.user_login_main);
+		setContentView(R.layout.user_login_main);  //sets layout to user_login_main
 
 		myPref = getSharedPreferences("ExcuseApp", Context.MODE_PRIVATE);
 
@@ -48,7 +49,8 @@ public class UserLoginMain extends Activity {
 		}
 
 		Intent oldIntent = getIntent();
-		String msg = oldIntent.getStringExtra("msg");
+		// gets message from previous screen if logged out for unknown reason
+		String msg = oldIntent.getStringExtra("msg");   
 
 		if(msg != null){   // did this screen get a message?
 			util.alert(msg, this); //display it
@@ -96,29 +98,35 @@ public class UserLoginMain extends Activity {
 
 
 
-
+	//checks for valid login fields
 	private void realLoginCheck(){
 
 		EditText usernameText = (EditText)findViewById(R.id.userName);
 		EditText credText = (EditText)findViewById(R.id.password);
 
+		//sets local variables for username and password fro editText fields 
 		username = usernameText.getText().toString();
 		cred = credText.getText().toString();
 
+		//checks for non-empty username field
 		if(username.length() < 1){
 			util.alert("Please type in a username!", this);
 		}
 
+		//checks for non-empty password field 
 		else if(cred.length() < 1){
 			
 			util.alert("Please type in a password!", this);
+			
+		//all user input fields are nonempty 
 		} else{
 
+			//checks user input from checkLogin() from accountAccess class 
 			acc.checkLogin(username, cred , new RestCallback() {
 
 				@Override
 				public void onTaskComplete(Object result) {
-
+					
 					HashMap<String, Object> a = g.fromJson((String)result, HashMap.class );  // returns hashmap representation of JSON
 
 
@@ -128,7 +136,7 @@ public class UserLoginMain extends Activity {
 					}
 					else // successful
 					{
-						setUserId(Integer.parseInt((String)a.get("userId")));
+						setUserId(Integer.parseInt((String)a.get("userId")));  //sets userId from returned server response 
 
 						loginGo();
 					}
@@ -157,11 +165,13 @@ public class UserLoginMain extends Activity {
 			public void onTaskComplete(Object result) {
 				Info myInfo = g.fromJson((String)result, Info.class);
 
+				//formats name from util class function 
 				String formattedName = util.nameCase(myInfo.getFirstName(), myInfo.getLastName());
 
-
+				//opens shared prefrence editor
 				SharedPreferences.Editor editor = myPref.edit();
 
+				//puts shared information into shared preferece 
 				editor.putString("infoJson", (String)result);
 				editor.putString("username", username);
 				editor.putBoolean("loggedIn", true);
